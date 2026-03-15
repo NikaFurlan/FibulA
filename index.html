@@ -172,11 +172,17 @@
       margin: 0.25rem 0;
     }
 
+
     .customer-card-actions {
       display: flex;
-      justify-content: flex-end;
+      justify-content: flex-start;
       gap: 0.6rem;
       margin-top: 0.9rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .customer-files-row {
+      margin-top: 0.75rem;
     }
 
     .customer-edit-form {
@@ -219,20 +225,39 @@
       background: var(--panel-2);
     }
 
-    .training-row h3 {
-      margin: 0 0 0.5rem;
-      font-size: 1rem;
+    .training-row-main {
+      display: grid;
+      grid-template-columns: minmax(180px, 1.5fr) minmax(110px, 0.75fr) minmax(120px, 0.85fr) minmax(200px, 1.35fr) minmax(90px, 0.7fr) auto;
+      gap: 0.75rem;
+      align-items: center;
     }
 
-    .training-row p {
-      margin: 0.2rem 0;
+    .training-cell {
+      min-width: 0;
+    }
+
+    .training-cell-label {
+      display: block;
+      margin-bottom: 0.15rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .training-cell-value {
+      display: block;
+      font-weight: 700;
+      overflow-wrap: anywhere;
     }
 
     .training-row-actions {
       display: flex;
       justify-content: flex-end;
       gap: 0.6rem;
-      margin-top: 0.9rem;
+      margin-top: 0;
+      align-items: center;
     }
 
     .secondary-button {
@@ -592,6 +617,34 @@
       font-size: 0.95rem;
     }
 
+    .confirm-overlay {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      background: rgba(0, 0, 0, 0.35);
+      z-index: 1000;
+    }
+
+    .confirm-overlay.open {
+      display: flex;
+    }
+
+    .confirm-dialog {
+      width: min(100%, 420px);
+      padding: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--panel);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+    }
+
+    .confirm-dialog p {
+      margin: 0 0 1rem;
+    }
+
     @media (max-width: 640px) {
       .page {
         margin: 0.5rem auto;
@@ -613,6 +666,11 @@
       .inline-fields.four-columns {
         grid-template-columns: 1fr;
       }
+
+      .training-row-main {
+        grid-template-columns: 1fr 1fr;
+      }
+
     }
   </style>
 </head>
@@ -634,7 +692,7 @@
           <span class="dropdown-arrow" aria-hidden="true"></span>
         </button>
         <div class="dropdown-menu" id="stranke-dropdown-menu">
-          <button class="dropdown-item" id="subtab-dodaj" type="button">Dodaj stranko v bazo</button>
+          <button class="dropdown-item" id="subtab-dodaj" type="button">Dodaj stranko</button>
           <button class="dropdown-item active" id="subtab-pregled" type="button">Pregled strank</button>
         </div>
       </div>
@@ -663,17 +721,7 @@
                 <span class="dropdown-arrow" aria-hidden="true"></span>
               </button>
               <div class="multiselect-menu" id="ime-stranke-menu"></div>
-              <select class="hidden-select" id="ime-stranke" name="ime-stranke" multiple size="6">
-                <option>Ana Štefančič</option>
-                <option>Matjaž Štefančič</option>
-                <option>Jana Hladnik Tratnik</option>
-                <option>Aljoša</option>
-                <option>Marko</option>
-                <option>Tamara Vidmar</option>
-                <option>Tomaž</option>
-                <option>Ana Curk</option>
-                <option>Beočanin žena</option>
-              </select>
+              <select class="hidden-select" id="ime-stranke" name="ime-stranke" multiple size="6"></select>
             </div>
           </label>
 
@@ -786,32 +834,38 @@
     <section class="tab-panel" id="panel-stranke" role="tabpanel" aria-labelledby="tab-stranke">
       <section class="subtab-panel" id="subpanel-dodaj">
         <form>
-          <label for="novo-ime">
-            Ime
-            <input id="novo-ime" name="novo-ime" type="text" placeholder="Vnesi ime">
-          </label>
-          <label for="nov-priimek">
-            Priimek
-            <input id="nov-priimek" name="nov-priimek" type="text" placeholder="Vnesi priimek">
-          </label>
-          <label for="nov-email">
-            Email
-            <input id="nov-email" name="nov-email" type="email" placeholder="Vnesi email">
-          </label>
-          <label for="nov-kraj">
-            Kraj
-            <select id="nov-kraj" name="nov-kraj">
-              <option>Ajdovščina</option>
-              <option>Idrija</option>
-            </select>
-          </label>
-          <label for="nov-racun">
-            Račun
-            <select id="nov-racun" name="nov-racun">
-              <option>da</option>
-              <option>ne</option>
-            </select>
-          </label>
+          <div class="inline-fields">
+            <label for="novo-ime">
+              Ime
+              <input id="novo-ime" name="novo-ime" type="text" placeholder="Vnesi ime">
+            </label>
+            <label for="nov-priimek">
+              Priimek
+              <input id="nov-priimek" name="nov-priimek" type="text" placeholder="Vnesi priimek">
+            </label>
+            <label for="nov-email">
+              Email
+              <input id="nov-email" name="nov-email" type="email" placeholder="Vnesi email">
+            </label>
+            <label for="nov-kraj">
+              Kraj
+              <select id="nov-kraj" name="nov-kraj">
+                <option>Ajdovščina</option>
+                <option>Idrija</option>
+              </select>
+            </label>
+            <label for="nov-racun">
+              Račun
+              <select id="nov-racun" name="nov-racun">
+                <option>da</option>
+                <option>ne</option>
+              </select>
+            </label>
+            <label for="nov-popust">
+              Popust (%)
+              <input id="nov-popust" name="nov-popust" type="number" min="0" max="100" step="1" value="0">
+            </label>
+          </div>
           <label for="nov-komentar">
             Komentar
             <textarea id="nov-komentar" name="nov-komentar" rows="4" placeholder="Dodaj komentar"></textarea>
@@ -821,7 +875,9 @@
             <input id="nov-datoteke" name="nov-datoteke" type="file" multiple>
           </label>
           <p class="status-text" id="status-datoteke-nove"></p>
-          <button class="primary-button" id="shrani-stranko" type="button">Zapiši stranko v bazo</button>
+          <div class="center-action">
+            <button class="primary-button compact" id="shrani-stranko" type="button">Zapiši stranko v bazo</button>
+          </div>
           <p class="status-text" id="status-stranke"></p>
         </form>
       </section>
@@ -873,6 +929,10 @@
                 <option>ne</option>
               </select>
             </label>
+            <label for="uredi-popust">
+              Popust (%)
+              <input id="uredi-popust" name="uredi-popust" type="number" min="0" max="100" step="1" value="0">
+            </label>
             <label for="uredi-komentar">
               Komentar
               <textarea id="uredi-komentar" name="uredi-komentar" rows="4" placeholder="Dodaj komentar"></textarea>
@@ -918,57 +978,74 @@
 
       <section class="subtab-panel" id="csubpanel-uredi">
         <form id="cenik-form">
-          <label for="cenik-kraj-uredi">
-            Izberi kraj
-            <select id="cenik-kraj-uredi" name="cenik-kraj-uredi">
-              <option>Ajdovščina</option>
-              <option>Idrija</option>
-            </select>
-          </label>
-          <label for="cenik-vrsta-vadbe">
-            Izberi vrsto vadbe
-            <select id="cenik-vrsta-vadbe" name="cenik-vrsta-vadbe">
-              <option value="individualna">individualna vadba</option>
-              <option value="semi2">semiindividualna vadba (2 osebi)</option>
-              <option value="semi3">semiindividualna vadba (3 osebe)</option>
-              <option value="semi4">semiindividualna vadba (4 osebe)</option>
-              <option value="semi5">semiindividualna vadba (5 oseb)</option>
-              <option value="terapevtska">terapevtska</option>
-              <option value="skupina">skupina</option>
-            </select>
-          </label>
-          <label for="cenik-cena">
-            Cena v EUR
-            <input id="cenik-cena" name="cenik-cena" type="number" min="0" step="1">
-          </label>
-          <button class="primary-button" id="shrani-cenik" type="button">Shrani cenik</button>
+          <div class="inline-fields">
+            <label for="cenik-kraj-uredi">
+              Izberi kraj
+              <select id="cenik-kraj-uredi" name="cenik-kraj-uredi">
+                <option>Ajdovščina</option>
+                <option>Idrija</option>
+              </select>
+            </label>
+            <label for="cenik-vrsta-vadbe">
+              Izberi vrsto vadbe
+              <select id="cenik-vrsta-vadbe" name="cenik-vrsta-vadbe">
+                <option value="individualna">individualna vadba</option>
+                <option value="semi2">semiindividualna vadba (2 osebi)</option>
+                <option value="semi3">semiindividualna vadba (3 osebe)</option>
+                <option value="semi4">semiindividualna vadba (4 osebe)</option>
+                <option value="semi5">semiindividualna vadba (5 oseb)</option>
+                <option value="terapevtska">terapevtska</option>
+                <option value="skupina">skupina</option>
+              </select>
+            </label>
+            <label for="cenik-cena">
+              Cena v EUR
+              <input id="cenik-cena" name="cenik-cena" type="number" min="0" step="1">
+            </label>
+          </div>
+          <div class="center-action">
+            <button class="primary-button compact" id="shrani-cenik" type="button">Shrani cenik</button>
+          </div>
           <p class="status-text" id="status-cenik"></p>
         </form>
       </section>
 
       <section class="subtab-panel" id="csubpanel-dodaj">
         <form id="dodaj-cenik-form">
-          <label for="cenik-kraj-dodaj">
-            Izberi kraj
-            <select id="cenik-kraj-dodaj" name="cenik-kraj-dodaj">
-              <option>Ajdovščina</option>
-              <option>Idrija</option>
-            </select>
-          </label>
-          <label for="cenik-nova-vadba">
-            Dodaj novo vadbo
-            <input id="cenik-nova-vadba" name="cenik-nova-vadba" type="text" placeholder="Vnesi ime vadbe">
-          </label>
-          <label for="cenik-nova-cena">
-            Cena v EUR
-            <input id="cenik-nova-cena" name="cenik-nova-cena" type="number" min="0" step="1">
-          </label>
-          <button class="primary-button" id="dodaj-cenik-gumb" type="button">Shrani cenik</button>
+          <div class="inline-fields">
+            <label for="cenik-kraj-dodaj">
+              Izberi kraj
+              <select id="cenik-kraj-dodaj" name="cenik-kraj-dodaj">
+                <option>Ajdovščina</option>
+                <option>Idrija</option>
+              </select>
+            </label>
+            <label for="cenik-nova-vadba">
+              Dodaj novo vadbo
+              <input id="cenik-nova-vadba" name="cenik-nova-vadba" type="text" placeholder="Vnesi ime vadbe">
+            </label>
+            <label for="cenik-nova-cena">
+              Cena v EUR
+              <input id="cenik-nova-cena" name="cenik-nova-cena" type="number" min="0" step="1">
+            </label>
+          </div>
+          <div class="center-action">
+            <button class="primary-button compact" id="dodaj-cenik-gumb" type="button">Shrani cenik</button>
+          </div>
           <p class="status-text" id="status-cenik-dodaj"></p>
         </form>
       </section>
     </section>
   </main>
+  <div class="confirm-overlay" id="confirm-overlay">
+    <div class="confirm-dialog">
+      <p id="confirm-message">Ste prepričani?</p>
+      <div class="training-row-actions">
+        <button class="primary-button compact" id="confirm-ok" type="button">OK</button>
+        <button class="secondary-button" id="confirm-cancel" type="button">Prekliči</button>
+      </div>
+    </div>
+  </div>
 
   <script>
     const tabs = [
@@ -1101,6 +1178,7 @@
     const novEmailInput = document.getElementById("nov-email");
     const novKrajInput = document.getElementById("nov-kraj");
     const novRacunInput = document.getElementById("nov-racun");
+    const novPopustInput = document.getElementById("nov-popust");
     const novKomentarInput = document.getElementById("nov-komentar");
     const novDatotekeInput = document.getElementById("nov-datoteke");
     const statusDatotekeNove = document.getElementById("status-datoteke-nove");
@@ -1113,6 +1191,7 @@
     const urediEmailInput = document.getElementById("uredi-email");
     const urediKrajInput = document.getElementById("uredi-kraj");
     const urediRacunInput = document.getElementById("uredi-racun");
+    const urediPopustInput = document.getElementById("uredi-popust");
     const urediKomentarInput = document.getElementById("uredi-komentar");
     const urediDatotekeInput = document.getElementById("uredi-datoteke");
     const urediDatotekeSeznam = document.getElementById("uredi-datoteke-seznam");
@@ -1164,6 +1243,10 @@
     const koledarNaslov = document.getElementById("koledar-naslov");
     const koledarGrid = document.getElementById("koledar-grid");
     const koledarIzbor = document.getElementById("koledar-izbor");
+    const confirmOverlay = document.getElementById("confirm-overlay");
+    const confirmMessage = document.getElementById("confirm-message");
+    const confirmOkButton = document.getElementById("confirm-ok");
+    const confirmCancelButton = document.getElementById("confirm-cancel");
     const formatter = new Intl.DateTimeFormat("sl-SI", {
       day: "2-digit",
       month: "2-digit",
@@ -1188,9 +1271,21 @@
       "Ajdovščina": { ...defaultCenikValues },
       "Idrija": { ...defaultCenikValues }
     };
+    const defaultCustomers = [
+      { name: "Ana Štefančič", email: "", kraj: "", racun: "", datoteke: [], komentar: "" },
+      { name: "Matjaž Štefančič", email: "", kraj: "", racun: "", datoteke: [], komentar: "" },
+      { name: "Jana Hladnik Tratnik", email: "", kraj: "", racun: "", datoteke: [], komentar: "" },
+      { name: "Aljoša", email: "", kraj: "", racun: "", datoteke: [], komentar: "" },
+      { name: "Marko", email: "", kraj: "", racun: "", datoteke: [], komentar: "" },
+      { name: "Tamara Vidmar", email: "", kraj: "", racun: "", datoteke: [], komentar: "" },
+      { name: "Tomaž", email: "", kraj: "", racun: "", datoteke: [], komentar: "" },
+      { name: "Ana Curk", email: "", kraj: "", racun: "", datoteke: [], komentar: "" },
+      { name: "Beočanin žena", email: "", kraj: "", racun: "", datoteke: [], komentar: "" }
+    ];
     let currentEditFiles = [];
     let removedEditFiles = [];
     let calendarViewDate = new Date();
+    let confirmAction = null;
     const selectedTrainingDates = new Set();
     const vrstaVadbeToCenikKey = {
       "individualna": "individualna",
@@ -1223,6 +1318,25 @@
         ime: parts[0],
         priimek: parts.slice(1).join(" ")
       };
+    }
+
+    function roundCurrency(value) {
+      return Math.round((Number(value) + Number.EPSILON) * 100) / 100;
+    }
+
+    function formatCurrency(value) {
+      return roundCurrency(value).toFixed(2);
+    }
+
+    function openConfirmDialog(message, onConfirm) {
+      confirmMessage.textContent = message;
+      confirmAction = onConfirm;
+      confirmOverlay.classList.add("open");
+    }
+
+    function closeConfirmDialog() {
+      confirmOverlay.classList.remove("open");
+      confirmAction = null;
     }
 
     function getSelectedFileNames(fileInput) {
@@ -1392,7 +1506,7 @@
         title.textContent = cenikKeyToDisplayLabel[key] || key;
 
         const price = document.createElement("div");
-        price.textContent = `${value} EUR`;
+        price.textContent = `${formatCurrency(value)} EUR`;
 
         titleBlock.append(title, price);
 
@@ -1417,13 +1531,15 @@
         deleteButton.className = "danger-button";
         deleteButton.textContent = "Izbriši";
         deleteButton.addEventListener("click", () => {
-          const nextCenik = getStoredCenik();
-          delete nextCenik[selectedKraj][key];
-          saveCenik(nextCenik);
-          populateCenikVrstaVadbeOptions(nextCenik, cenikKrajUrediSelect.value);
-          renderCenik(nextCenik);
-          fillCenikForm(nextCenik);
-          statusCenik.textContent = "";
+          openConfirmDialog("Ste prepričani, da želite izbrisati cenik?", () => {
+            const nextCenik = getStoredCenik();
+            delete nextCenik[selectedKraj][key];
+            saveCenik(nextCenik);
+            populateCenikVrstaVadbeOptions(nextCenik, cenikKrajUrediSelect.value);
+            renderCenik(nextCenik);
+            fillCenikForm(nextCenik);
+            statusCenik.textContent = "";
+          });
         });
 
         actions.append(editButton, deleteButton);
@@ -1432,10 +1548,14 @@
       });
     }
 
-    function getCurrentTrainingPrice(vrstaVadbe, kraj) {
+    function getCurrentTrainingPrice(vrstaVadbe, kraj, racun = "da", popust = 0) {
       const cenik = getStoredCenik();
       const cenikKey = vrstaVadbeToCenikKey[vrstaVadbe];
-      return cenikKey ? cenik[kraj][cenikKey] : 0;
+      const basePrice = cenikKey ? cenik[kraj][cenikKey] : 0;
+      const racunDiscountedPrice = racun === "ne" ? basePrice * 0.78 : basePrice;
+      const normalizedPopust = Math.max(0, Math.min(100, Number(popust) || 0));
+      const finalPrice = racunDiscountedPrice * (1 - normalizedPopust / 100);
+      return roundCurrency(finalPrice);
     }
 
     function createTrainingId() {
@@ -1653,6 +1773,36 @@
     function renderTrainingFilterCustomerMenu() {
       filterTreningStrankaMenu.innerHTML = "";
 
+      const actions = document.createElement("div");
+      actions.className = "multiselect-actions";
+
+      const selectAllButton = document.createElement("button");
+      selectAllButton.type = "button";
+      selectAllButton.className = "multiselect-action-button";
+      selectAllButton.textContent = "Izberi vse";
+      selectAllButton.addEventListener("click", () => {
+        Array.from(filterTreningStrankaSelect.options).forEach((option) => {
+          option.selected = true;
+        });
+        renderTrainingFilterCustomerMenu();
+        renderTreningi();
+      });
+
+      const clearAllButton = document.createElement("button");
+      clearAllButton.type = "button";
+      clearAllButton.className = "multiselect-action-button";
+      clearAllButton.textContent = "Počisti vse";
+      clearAllButton.addEventListener("click", () => {
+        Array.from(filterTreningStrankaSelect.options).forEach((option) => {
+          option.selected = false;
+        });
+        renderTrainingFilterCustomerMenu();
+        renderTreningi();
+      });
+
+      actions.append(selectAllButton, clearAllButton);
+      filterTreningStrankaMenu.appendChild(actions);
+
       Array.from(filterTreningStrankaSelect.options).forEach((option) => {
         const row = document.createElement("label");
         row.className = "multiselect-option";
@@ -1739,7 +1889,7 @@
       const totalCena = filteredTreningi.reduce((sum, trening) => sum + (Number(trening.cena) || 0), 0);
 
       povzetekStevilo.textContent = `Skupaj število treningov: ${filteredTreningi.length}`;
-      povzetekCena.textContent = `Skupaj cena: ${totalCena} EUR`;
+      povzetekCena.textContent = `Skupaj cena: ${formatCurrency(totalCena)} EUR`;
 
       if (filteredTreningi.length === 0) {
         const empty = document.createElement("div");
@@ -1753,20 +1903,32 @@
         const row = document.createElement("article");
         row.className = "training-row";
 
-        const title = document.createElement("h3");
-        title.textContent = trening.imeStranke;
+        const main = document.createElement("div");
+        main.className = "training-row-main";
 
-        const datum = document.createElement("p");
-        datum.textContent = `Datum: ${trening.datumPrikaz}`;
+        const createCell = (label, value) => {
+          const cell = document.createElement("div");
+          cell.className = "training-cell";
 
-        const vrsta = document.createElement("p");
-        vrsta.textContent = `Vrsta vadbe: ${trening.vrstaVadbe}`;
+          const cellLabel = document.createElement("span");
+          cellLabel.className = "training-cell-label";
+          cellLabel.textContent = label;
 
-        const kraj = document.createElement("p");
-        kraj.textContent = `Kraj: ${trening.kraj}`;
+          const cellValue = document.createElement("span");
+          cellValue.className = "training-cell-value";
+          cellValue.textContent = value;
 
-        const cena = document.createElement("p");
-        cena.textContent = `Cena: ${trening.cena} EUR`;
+          cell.append(cellLabel, cellValue);
+          return cell;
+        };
+
+        main.append(
+          createCell("Stranka", trening.imeStranke),
+          createCell("Kraj", trening.kraj),
+          createCell("Datum", trening.datumPrikaz),
+          createCell("Vrsta vadbe", trening.vrstaVadbe),
+          createCell("Cena", `${formatCurrency(trening.cena)} EUR`)
+        );
 
         const actions = document.createElement("div");
         actions.className = "training-row-actions";
@@ -1843,7 +2005,13 @@
             treningToUpdate.datum = datumInput.value;
             treningToUpdate.datumPrikaz = formatTrainingDisplayDate(datumInput.value);
             treningToUpdate.vrstaVadbe = vrstaInput.value;
-            treningToUpdate.cena = getCurrentTrainingPrice(vrstaInput.value, treningToUpdate.kraj);
+            const customerOption = Array.from(imeStrankeSelect.options).find((option) => option.value === treningToUpdate.imeStranke);
+            treningToUpdate.cena = getCurrentTrainingPrice(
+              vrstaInput.value,
+              treningToUpdate.kraj,
+              customerOption?.dataset.racun || "da",
+              customerOption?.dataset.popust || "0"
+            );
 
             saveTreningi(allTreningi);
             renderTreningi();
@@ -1859,13 +2027,16 @@
         });
 
         deleteButton.addEventListener("click", () => {
-          const allTreningi = readTreningi().filter((item) => item.id !== trening.id);
-          saveTreningi(allTreningi);
-          renderTreningi();
+          openConfirmDialog("Ste prepričani, da želite izbrisati trening?", () => {
+            const allTreningi = readTreningi().filter((item) => item.id !== trening.id);
+            saveTreningi(allTreningi);
+            renderTreningi();
+          });
         });
 
         actions.append(editButton, deleteButton);
-        row.append(title, datum, kraj, vrsta, cena, actions);
+        main.append(actions);
+        row.append(main);
         seznamTreningov.appendChild(row);
       });
     }
@@ -1978,6 +2149,7 @@
         email: option.dataset.email || "",
         kraj: option.dataset.kraj || "",
         racun: option.dataset.racun || "",
+        popust: option.dataset.popust || "0",
         datoteke: option.dataset.datoteke ? JSON.parse(option.dataset.datoteke) : [],
         komentar: option.dataset.komentar || ""
       }));
@@ -1998,6 +2170,7 @@
         option.dataset.email = customer.email || "";
         option.dataset.kraj = customer.kraj || "";
         option.dataset.racun = customer.racun || "";
+        option.dataset.popust = customer.popust || "0";
         option.dataset.datoteke = JSON.stringify(Array.isArray(customer.datoteke) ? customer.datoteke : []);
         option.dataset.komentar = customer.komentar || "";
         option.selected = currentValues.has(customer.name);
@@ -2012,6 +2185,7 @@
       const saved = localStorage.getItem(STORAGE_KEY);
 
       if (!saved) {
+        renderCustomersToSelect(defaultCustomers);
         saveCustomersToStorage();
         return;
       }
@@ -2030,6 +2204,7 @@
             email: typeof customer.email === "string" ? customer.email : "",
             kraj: typeof customer.kraj === "string" && customer.kraj ? customer.kraj : "",
             racun: typeof customer.racun === "string" && customer.racun ? customer.racun : "",
+            popust: customer?.popust != null ? String(customer.popust) : "0",
             datoteke: Array.isArray(customer.datoteke)
               ? customer.datoteke
                   .filter((item) => item && typeof item.name === "string" && typeof item.url === "string")
@@ -2089,7 +2264,11 @@
         const racun = document.createElement("p");
         racun.textContent = `Račun: ${option.dataset.racun || "-"}`;
 
+        const popust = document.createElement("p");
+        popust.textContent = `Popust: ${option.dataset.popust || "0"} %`;
+
         const datoteke = document.createElement("p");
+        datoteke.className = "customer-files-row";
         datoteke.textContent = "Datoteke: ";
         const files = option.dataset.datoteke ? JSON.parse(option.dataset.datoteke) : [];
 
@@ -2166,6 +2345,13 @@
             racunOption.selected = (option.dataset.racun || "da") === value;
             racunInput.appendChild(racunOption);
           });
+
+          const popustInput = document.createElement("input");
+          popustInput.type = "number";
+          popustInput.min = "0";
+          popustInput.max = "100";
+          popustInput.step = "1";
+          popustInput.value = option.dataset.popust || "0";
 
           const komentarInput = document.createElement("textarea");
           komentarInput.rows = 4;
@@ -2295,6 +2481,7 @@
             option.dataset.email = emailInput.value.trim();
             option.dataset.kraj = krajInput.value;
             option.dataset.racun = racunInput.value;
+            option.dataset.popust = String(Math.max(0, Math.min(100, Number(popustInput.value) || 0)));
             option.dataset.komentar = komentarInput.value.trim();
             option.dataset.datoteke = JSON.stringify([...currentFiles, ...uploadedFiles]);
 
@@ -2303,7 +2490,12 @@
               if (trening.imeStranke === originalName) {
                 trening.imeStranke = fullName;
                 trening.kraj = krajInput.value;
-                trening.cena = getCurrentTrainingPrice(trening.vrstaVadbe, krajInput.value);
+                trening.cena = getCurrentTrainingPrice(
+                  trening.vrstaVadbe,
+                  krajInput.value,
+                  racunInput.value,
+                  popustInput.value
+                );
               }
             });
 
@@ -2327,6 +2519,7 @@
             makeField("Email", emailInput),
             makeField("Kraj", krajInput),
             makeField("Račun", racunInput),
+            makeField("Popust (%)", popustInput),
             makeField("Komentar", komentarInput),
             makeField("Naloži datoteke", datotekeInput),
             filesList,
@@ -2338,20 +2531,22 @@
         });
 
         deleteButton.addEventListener("click", () => {
-          const deletedName = option.value;
-          option.remove();
-          const allTreningi = readTreningi().filter((trening) => trening.imeStranke !== deletedName);
-          saveCustomersToStorage();
-          saveTreningi(allTreningi);
-          renderTrainingCustomerMenu();
-          renderEditSelect();
-          renderDeleteSelect();
-          renderTreningi();
-          renderCustomerList();
+          openConfirmDialog("Ste prepričani, da želite izbrisati stranko?", () => {
+            const deletedName = option.value;
+            option.remove();
+            const allTreningi = readTreningi().filter((trening) => trening.imeStranke !== deletedName);
+            saveCustomersToStorage();
+            saveTreningi(allTreningi);
+            renderTrainingCustomerMenu();
+            renderEditSelect();
+            renderDeleteSelect();
+            renderTreningi();
+            renderCustomerList();
+          });
         });
 
         actions.append(editButton, deleteButton);
-        card.append(title, ime, priimek, email, kraj, racun, datoteke, komentar, actions);
+        card.append(actions, title, ime, priimek, email, kraj, racun, popust, datoteke, komentar);
         seznamStrank.appendChild(card);
       });
 
@@ -2412,6 +2607,7 @@
         urediEmailInput.value = "";
         urediKrajInput.value = "Ajdovščina";
         urediRacunInput.value = "da";
+        urediPopustInput.value = "0";
         currentEditFiles = [];
         removedEditFiles = [];
         renderEditFiles();
@@ -2428,6 +2624,7 @@
       urediEmailInput.value = selectedOption.dataset.email || "";
       urediKrajInput.value = selectedOption.dataset.kraj || "Ajdovščina";
       urediRacunInput.value = selectedOption.dataset.racun || "da";
+      urediPopustInput.value = selectedOption.dataset.popust || "0";
       currentEditFiles = selectedOption.dataset.datoteke ? JSON.parse(selectedOption.dataset.datoteke) : [];
       removedEditFiles = [];
       renderEditFiles();
@@ -2439,6 +2636,7 @@
       option.dataset.email = option.dataset.email || "";
       option.dataset.kraj = option.dataset.kraj || "";
       option.dataset.racun = option.dataset.racun || "";
+      option.dataset.popust = option.dataset.popust || "0";
       option.dataset.datoteke = option.dataset.datoteke || "[]";
       option.dataset.komentar = option.dataset.komentar || "";
     });
@@ -2511,10 +2709,10 @@
       option.dataset.email = novEmailInput.value.trim();
       option.dataset.kraj = novKrajInput.value;
       option.dataset.racun = novRacunInput.value;
+      option.dataset.popust = String(Math.max(0, Math.min(100, Number(novPopustInput.value) || 0)));
       option.dataset.datoteke = JSON.stringify(uploadedFiles);
       option.dataset.komentar = novKomentarInput.value.trim();
       imeStrankeSelect.appendChild(option);
-      option.selected = true;
       renderTrainingCustomerMenu();
 
       statusStranke.textContent = `Stranka "${fullName}" je dodana v bazo.`;
@@ -2523,6 +2721,7 @@
       novEmailInput.value = "";
       novKrajInput.value = "Ajdovščina";
       novRacunInput.value = "da";
+      novPopustInput.value = "0";
       novKomentarInput.value = "";
       novDatotekeInput.value = "";
       setFileStatus(statusDatotekeNove, []);
@@ -2568,7 +2767,12 @@
         .reverse()
         .forEach((option) => {
           const kraj = option.dataset.kraj;
-          const cena = getCurrentTrainingPrice(vrstaVadbe, kraj);
+          const cena = getCurrentTrainingPrice(
+            vrstaVadbe,
+            kraj,
+            option.dataset.racun || "da",
+            option.dataset.popust || "0"
+          );
           treningi.unshift({
             id: createTrainingId(),
             imeStranke: option.value,
@@ -2668,6 +2872,7 @@
       optionToEdit.dataset.email = urediEmailInput.value.trim();
       optionToEdit.dataset.kraj = urediKrajInput.value;
       optionToEdit.dataset.racun = urediRacunInput.value;
+      optionToEdit.dataset.popust = String(Math.max(0, Math.min(100, Number(urediPopustInput.value) || 0)));
       optionToEdit.dataset.datoteke = JSON.stringify(mergedFiles);
       optionToEdit.dataset.komentar = urediKomentarInput.value.trim();
       Array.from(imeStrankeSelect.options).forEach((option) => {
@@ -2832,6 +3037,24 @@
         filterTreningLetoToggle.setAttribute("aria-expanded", "false");
         filterTreningStrankaMenu.classList.remove("open");
         filterTreningStrankaToggle.setAttribute("aria-expanded", "false");
+      }
+    });
+
+    confirmOkButton.addEventListener("click", () => {
+      const action = confirmAction;
+      closeConfirmDialog();
+      if (action) {
+        action();
+      }
+    });
+
+    confirmCancelButton.addEventListener("click", () => {
+      closeConfirmDialog();
+    });
+
+    confirmOverlay.addEventListener("click", (event) => {
+      if (event.target === confirmOverlay) {
+        closeConfirmDialog();
       }
     });
 
