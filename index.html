@@ -38,9 +38,98 @@
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
     }
 
-    .topbar {
+    .login-shell {
+      width: min(92vw, 460px);
+      margin: 5rem auto 2rem;
+      padding: 1.5rem;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+      text-align: center;
+    }
+
+    .login-shell h1 {
+      margin: 0 0 0.35rem;
+      font-size: 1.5rem;
+    }
+
+    .login-shell p {
+      margin: 0 0 1rem;
+      color: var(--muted);
+    }
+
+    .login-shell .logo {
+      margin: 0 auto 0.9rem;
+    }
+
+    .login-shell form {
+      text-align: left;
+    }
+
+    .login-switch {
+      margin-top: 0.25rem;
+      text-align: center;
+    }
+
+    .topbar-right {
+      display: grid;
+      gap: 0.95rem;
+      margin-left: auto;
+      justify-items: end;
+      flex: 1 1 auto;
+    }
+
+    .auth-row {
       display: flex;
       align-items: center;
+      gap: 0.55rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .auth-user {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .auth-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .auth-actions .secondary-button.compact {
+      padding: 0.35rem 0.65rem;
+      font-size: 0.78rem;
+    }
+
+    .login-shell .primary-button,
+    .login-switch .secondary-button.compact {
+      width: auto;
+      justify-self: center;
+      padding: 0.55rem 0.95rem;
+      font-size: 0.9rem;
+    }
+
+    .password-panel {
+      margin: 0 0 1rem;
+      padding: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--panel-2);
+    }
+
+    .password-panel h2 {
+      margin: 0 0 0.8rem;
+      font-size: 1rem;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: flex-start;
       justify-content: space-between;
       gap: 1.25rem;
       margin-bottom: 1rem;
@@ -61,7 +150,7 @@
       margin-bottom: 0;
       align-items: center;
       justify-content: flex-end;
-      flex: 1 1 auto;
+      width: 100%;
     }
 
     .tab-button {
@@ -376,8 +465,321 @@
       gap: 0.75rem;
     }
 
+    .month-diary {
+      display: flex;
+      flex-direction: column;
+      margin: 1rem 0 1.25rem;
+      padding: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--panel-2);
+    }
+
+    .month-diary-toolbar {
+      display: flex;
+      order: 2;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 0.9rem;
+      text-align: center;
+    }
+
+    .month-diary-titlebar {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      width: 100%;
+      text-align: center;
+    }
+
+    .month-diary-controls {
+      display: grid;
+      order: 1;
+      width: 100%;
+      grid-template-columns: repeat(4, minmax(140px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 0.9rem;
+      padding: 0.9rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--panel);
+      align-items: end;
+    }
+
+    .month-diary-controls label {
+      font-size: 0.9rem;
+    }
+
+    .month-filter-summary {
+      display: none;
+      order: 3;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 0 0 0.9rem;
+    }
+
+    .month-filter-chip {
+      padding: 0.35rem 0.6rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--panel);
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .month-diary-grid {
+      display: grid;
+      order: 3;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 0.5rem;
+    }
+
+    .month-diary-weekday {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .month-diary-day {
+      min-height: 120px;
+      padding: 0.45rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--panel);
+    }
+
+    .month-diary-day.empty {
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .month-diary-day.selected {
+      border-color: var(--bright);
+      box-shadow: inset 0 0 0 1px var(--bright);
+    }
+
+    .month-diary-day-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.45rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .month-diary-day-list {
+      display: grid;
+      gap: 0.3rem;
+    }
+
+    .month-diary-entry {
+      padding: 0.3rem 0.45rem;
+      border-radius: 8px;
+      background: #ffffff;
+      font-size: 0.76rem;
+      line-height: 1.25;
+      overflow-wrap: anywhere;
+    }
+
+    .month-diary-entry-time {
+      color: var(--muted);
+      font-weight: 700;
+      margin-right: 0.25rem;
+    }
+
     .calendar-filter.hidden {
       display: none;
+    }
+
+    .week-calendar-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .week-calendar-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.95fr) minmax(200px, 0.62fr);
+      gap: 1rem;
+      align-items: start;
+    }
+
+    .week-calendar-grid {
+      display: grid;
+      grid-template-columns: 64px repeat(7, minmax(0, 1fr));
+      gap: 0.5rem;
+      --week-hour-height: 72px;
+    }
+
+    .week-calendar-head,
+    .week-calendar-time {
+      font-weight: 700;
+    }
+
+    .week-calendar-head {
+      padding: 0.75rem 0.55rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--panel-2);
+      text-align: center;
+      font-size: 0.92rem;
+    }
+
+    .week-calendar-head span {
+      display: block;
+      margin-top: 0.2rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .week-calendar-time {
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: var(--week-hour-height);
+      color: var(--muted);
+      font-size: 0.8rem;
+      background: transparent;
+      border: 0;
+    }
+
+    .week-calendar-hours {
+      display: grid;
+      grid-template-rows: repeat(18, var(--week-hour-height));
+    }
+
+    .week-calendar-day {
+      position: relative;
+      display: grid;
+      grid-template-rows: repeat(18, var(--week-hour-height));
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--panel-2);
+      overflow: hidden;
+    }
+
+    .week-calendar-slot {
+      position: relative;
+      border-top: 1px solid var(--border);
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .week-calendar-slot:first-child {
+      border-top: 0;
+    }
+
+    .week-calendar-slot.active {
+      background: rgba(17, 17, 17, 0.04);
+    }
+
+    .week-calendar-slot-add {
+      position: absolute;
+      top: 0.35rem;
+      right: 0.35rem;
+      z-index: 2;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+      border-radius: 999px;
+      width: 1.8rem;
+      height: 1.8rem;
+      font: inherit;
+      font-weight: 700;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .week-calendar-entry {
+      position: absolute;
+      left: 0.35rem;
+      right: 0.35rem;
+      z-index: 3;
+      padding: 0.55rem 0.7rem;
+      border-radius: 16px;
+      background: var(--panel);
+      border: 1px solid transparent;
+      font-size: 0.84rem;
+      line-height: 1.3;
+      cursor: pointer;
+      overflow: hidden;
+      box-shadow: 0 8px 18px rgba(17, 17, 17, 0.08);
+    }
+
+    .week-calendar-entry strong,
+    .week-calendar-entry span {
+      display: block;
+    }
+
+    .week-calendar-entry strong {
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .week-editor {
+      padding: 0.8rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--panel-2);
+      gap: 0.75rem;
+      font-size: 0.84rem;
+    }
+
+    .week-editor-title {
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    .week-editor-slot {
+      margin: 0;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 0.84rem;
+    }
+
+    .week-editor label {
+      gap: 0.35rem;
+      font-size: 0.84rem;
+    }
+
+    .week-editor select,
+    .week-editor input {
+      padding: 0.58rem 0.72rem;
+      font-size: 0.84rem;
+    }
+
+    .week-editor-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-weight: 700;
+      font-size: 0.84rem;
+    }
+
+    .week-editor-checkbox input {
+      width: auto;
+      margin: 0;
+    }
+
+    .week-editor .center-action {
+      gap: 0.9rem;
+    }
+
+    .week-editor .primary-button.compact,
+    .week-editor .danger-button {
+      padding: 0.42rem 0.72rem;
+      font-size: 0.84rem;
     }
 
     .hidden {
@@ -425,6 +827,50 @@
 
     .inline-fields.four-columns {
       grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .checkbox-group-field {
+      display: grid;
+      gap: 0.45rem;
+      padding: 0.85rem 1rem;
+      border: 1px solid rgba(15, 23, 42, 0.12);
+      border-radius: 14px;
+      background: rgba(248, 250, 252, 0.8);
+    }
+
+    .checkbox-group-title {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    .checkbox-group-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .checkbox-group-options label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin: 0;
+      font-weight: 500;
+    }
+
+    #subpanel-pregled form {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      align-items: end;
+    }
+
+    #subpanel-pregled label[for="filter-kraj-strank"] {
+      order: 1;
+    }
+
+    #subpanel-pregled label[for="filter-stranka-pregled"] {
+      order: 2;
     }
 
     .multiselect {
@@ -671,20 +1117,64 @@
         grid-template-columns: 1fr 1fr;
       }
 
+      .week-calendar-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .week-calendar-grid {
+        grid-template-columns: 72px repeat(7, minmax(120px, 1fr));
+        overflow-x: auto;
+      }
+
     }
   </style>
 </head>
 <body>
-  <main class="page">
+  <section class="login-shell" id="login-shell">
+    <img class="logo" src="logo.png" alt="Fibula logo">
+    <h1 id="auth-heading">Prijava</h1>
+    <p id="auth-subheading">Za dostop do portala se prijavi z uporabniškim imenom in geslom.</p>
+    <form id="login-form">
+      <label for="login-username">
+        Uporabniško ime
+        <input id="login-username" name="login-username" type="text" autocomplete="username">
+      </label>
+      <label for="login-password">
+        Geslo
+        <input id="login-password" name="login-password" type="password" autocomplete="current-password">
+      </label>
+      <button class="primary-button" id="login-submit-button" type="submit">Prijava</button>
+      <p class="status-text" id="login-status"></p>
+    </form>
+    <div class="login-switch">
+      <button class="secondary-button compact hidden" id="toggle-register-button" type="button">Registracija</button>
+      <button class="secondary-button compact hidden" id="toggle-login-button" type="button">Nazaj na prijavo</button>
+    </div>
+  </section>
+
+  <main class="page hidden" id="app-shell">
     <div class="topbar">
       <img class="logo" src="logo.png" alt="Fibula logo">
-
-    <div class="tabs" role="tablist" aria-label="Navigacija zavihkov">
-      <button class="tab-button active" id="tab-dodaj" type="button" role="tab" aria-selected="true" aria-controls="panel-dodaj">
+      <div class="topbar-right">
+        <div class="auth-row">
+          <span class="auth-user" id="auth-user"></span>
+          <div class="auth-actions">
+            <button class="secondary-button compact" id="toggle-password-panel" type="button">Spremeni geslo</button>
+            <button class="secondary-button compact" id="logout-button" type="button">Odjava</button>
+          </div>
+        </div>
+        <div class="tabs" role="tablist" aria-label="Navigacija zavihkov">
+      <button class="tab-button hidden" id="tab-dodaj" type="button" role="tab" aria-selected="false" aria-controls="panel-dodaj">
         Dodaj nov trening
       </button>
+      <button class="tab-button active" id="tab-tedenski" type="button" role="tab" aria-selected="true" aria-controls="panel-tedenski">
+        Tedenski koledar
+      </button>
+      <button class="tab-button" id="tab-mesecni" type="button" role="tab" aria-selected="false" aria-controls="panel-mesecni">
+        Mesečni koledar
+      </button>
       <button class="tab-button" id="tab-belezka" type="button" role="tab" aria-selected="false" aria-controls="panel-belezka">
-        Beležka treningov
+        Dnevnik treningov
       </button>
       <div class="tab-dropdown">
         <button class="tab-button dropdown-toggle" id="tab-stranke" type="button" aria-expanded="false" aria-controls="stranke-dropdown-menu">
@@ -707,10 +1197,36 @@
           <button class="dropdown-item" id="csubtab-dodaj" type="button">Dodaj cenik</button>
         </div>
       </div>
-    </div>
+        </div>
+      </div>
     </div>
 
-    <section class="tab-panel active" id="panel-dodaj" role="tabpanel" aria-labelledby="tab-dodaj">
+    <section class="password-panel hidden" id="password-panel">
+      <h2>Spremeni geslo</h2>
+      <form id="password-form">
+        <div class="inline-fields">
+          <label for="current-password">
+            Trenutno geslo
+            <input id="current-password" name="current-password" type="password" autocomplete="current-password">
+          </label>
+          <label for="new-password">
+            Novo geslo
+            <input id="new-password" name="new-password" type="password" autocomplete="new-password">
+          </label>
+          <label for="confirm-password">
+            Potrdi novo geslo
+            <input id="confirm-password" name="confirm-password" type="password" autocomplete="new-password">
+          </label>
+        </div>
+        <div class="auth-actions">
+          <button class="primary-button compact" type="submit">Shrani geslo</button>
+          <button class="secondary-button compact" id="cancel-password-panel" type="button">Prekliči</button>
+        </div>
+        <p class="status-text" id="password-status"></p>
+      </form>
+    </section>
+
+    <section class="tab-panel" id="panel-dodaj" role="tabpanel" aria-labelledby="tab-dodaj">
       <form>
         <div class="inline-fields">
           <label for="ime-stranke">
@@ -750,6 +1266,119 @@
         </div>
         <p class="status-text" id="status-treninga"></p>
       </form>
+    </section>
+
+    <section class="tab-panel active" id="panel-tedenski" role="tabpanel" aria-labelledby="tab-tedenski">
+      <div class="week-calendar-toolbar">
+        <button class="calendar-nav" id="tedenski-prejsnji" type="button">Prejšnji teden</button>
+        <strong id="tedenski-naslov">Teden</strong>
+        <button class="calendar-nav" id="tedenski-naslednji" type="button">Naslednji teden</button>
+      </div>
+      <div class="week-calendar-layout">
+        <div class="week-calendar-grid" id="tedenski-grid"></div>
+        <form class="week-editor">
+          <h3 class="week-editor-title" id="tedenski-editor-title">Dodaj termin</h3>
+          <p class="week-editor-slot" id="tedenski-termin">Izberi termin v koledarju.</p>
+          <label for="tedenski-stranke">
+            Stranka
+            <div class="multiselect">
+              <button class="multiselect-toggle" id="tedenski-stranke-toggle" type="button">
+                <span id="tedenski-stranke-povzetek">Izberi stranko</span>
+                <span class="dropdown-arrow" aria-hidden="true"></span>
+              </button>
+              <div class="multiselect-menu" id="tedenski-stranke-menu"></div>
+              <select class="hidden-select" id="tedenski-stranke" name="tedenski-stranke" multiple size="6"></select>
+            </div>
+          </label>
+          <label for="tedenski-vrsta-vadbe">
+            Vrsta vadbe
+            <select id="tedenski-vrsta-vadbe" name="tedenski-vrsta-vadbe">
+              <option value="" selected>Izberi vrsto vadbe</option>
+              <option>individualna</option>
+              <option>semiindivvidualna (2 osebi)</option>
+              <option>semiindividualna (3 osebe)</option>
+              <option>semiindividualna (4 osebe)</option>
+              <option>semiindividualne (5 oseb)</option>
+              <option>terapevtska</option>
+              <option>skupinska</option>
+              <option>obÄŤina</option>
+            </select>
+          </label>
+          <label for="tedenski-ura">
+            Ura začetka
+            <select id="tedenski-ura" name="tedenski-ura"></select>
+          </label>
+          <label for="tedenski-trajanje">
+            Trajanje
+            <select id="tedenski-trajanje" name="tedenski-trajanje"></select>
+          </label>
+          <label class="week-editor-checkbox" for="tedenski-ponavljanje">
+            <input id="tedenski-ponavljanje" name="tedenski-ponavljanje" type="checkbox">
+            Ponavljajoče se
+          </label>
+          <div class="center-action">
+            <button class="primary-button compact" id="tedenski-shrani" type="button">Shrani termin</button>
+            <button class="danger-button hidden" id="tedenski-izbrisi" type="button">Izbriši termin</button>
+          </div>
+          <p class="status-text" id="tedenski-status"></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="tab-panel" id="panel-mesecni" role="tabpanel" aria-labelledby="tab-mesecni">
+      <section class="month-diary">
+        <div class="month-diary-controls hidden" aria-hidden="true">
+          <button class="calendar-nav" id="mesecni-prejsnji" type="button">Prejšnji mesec</button>
+          <strong id="mesecni-naslov">Mesec leto</strong>
+          <button class="calendar-nav" id="mesecni-naslednji" type="button">Naslednji mesec</button>
+        </div>
+          <div class="month-diary-controls">
+          <label for="mesecni-filter-mesec">
+            Mesec
+            <div class="multiselect">
+              <button class="multiselect-toggle" id="mesecni-filter-mesec-toggle" type="button">
+                <span id="mesecni-filter-mesec-povzetek">Vsi meseci</span>
+                <span class="dropdown-arrow" aria-hidden="true"></span>
+              </button>
+              <div class="multiselect-menu" id="mesecni-filter-mesec-menu"></div>
+              <select class="hidden-select" id="mesecni-filter-mesec" multiple size="12"></select>
+            </div>
+          </label>
+          <label for="mesecni-filter-leto">
+            Leto
+            <div class="multiselect">
+              <button class="multiselect-toggle" id="mesecni-filter-leto-toggle" type="button">
+                <span id="mesecni-filter-leto-povzetek">Vsa leta</span>
+                <span class="dropdown-arrow" aria-hidden="true"></span>
+              </button>
+              <div class="multiselect-menu" id="mesecni-filter-leto-menu"></div>
+              <select class="hidden-select" id="mesecni-filter-leto" multiple size="6"></select>
+            </div>
+          </label>
+          <label for="mesecni-filter-stranka">
+            Stranka
+            <div class="multiselect">
+              <button class="multiselect-toggle" id="mesecni-filter-stranka-toggle" type="button">
+                <span id="mesecni-filter-stranka-povzetek">Vse stranke</span>
+                <span class="dropdown-arrow" aria-hidden="true"></span>
+              </button>
+              <div class="multiselect-menu" id="mesecni-filter-stranka-menu"></div>
+              <select class="hidden-select" id="mesecni-filter-stranka" multiple size="6"></select>
+            </div>
+          </label>
+          <label for="mesecni-filter-kraj">
+            Kraj
+            <select id="mesecni-filter-kraj">
+              <option value="">Vsi kraji</option>
+              <option value="AjdovĹˇÄŤina">AjdovĹˇÄŤina</option>
+              <option value="Idrija">Idrija</option>
+            </select>
+          </label>
+        </div>
+        </div>
+        <div class="month-filter-summary" id="mesecni-filtri"></div>
+        <div class="month-diary-grid" id="mesecni-grid"></div>
+      </section>
     </section>
 
     <section class="tab-panel" id="panel-belezka" role="tabpanel" aria-labelledby="tab-belezka">
@@ -843,6 +1472,10 @@
               Priimek
               <input id="nov-priimek" name="nov-priimek" type="text" placeholder="Vnesi priimek">
             </label>
+            <label for="nov-telefon">
+              Telefonska številka
+              <input id="nov-telefon" name="nov-telefon" type="text" placeholder="Vnesi telefonsko številko">
+            </label>
             <label for="nov-email">
               Email
               <input id="nov-email" name="nov-email" type="email" placeholder="Vnesi email">
@@ -866,6 +1499,14 @@
               <input id="nov-popust" name="nov-popust" type="number" min="0" max="100" step="1" value="0">
             </label>
           </div>
+          <fieldset class="checkbox-group-field">
+            <legend class="checkbox-group-title">Status</legend>
+            <div class="checkbox-group-options">
+              <label><input id="nov-status-student" name="nov-status" type="checkbox" value="študent"> študent</label>
+              <label><input id="nov-status-dijak" name="nov-status" type="checkbox" value="dijak"> dijak</label>
+              <label><input id="nov-status-upokojenec" name="nov-status" type="checkbox" value="upokojenec"> upokojenec</label>
+            </div>
+          </fieldset>
           <label for="nov-komentar">
             Komentar
             <textarea id="nov-komentar" name="nov-komentar" rows="4" placeholder="Dodaj komentar"></textarea>
@@ -884,8 +1525,14 @@
 
       <section class="subtab-panel active" id="subpanel-pregled">
         <form>
+          <label for="filter-stranka-pregled">
+            Stranka
+            <select id="filter-stranka-pregled" name="filter-stranka-pregled">
+              <option value="">Vse stranke</option>
+            </select>
+          </label>
           <label for="filter-kraj-strank">
-            Filter po kraju
+            Kraj
             <select id="filter-kraj-strank" name="filter-kraj-strank">
               <option value="">Vsi kraji</option>
               <option value="Ajdovščina">Ajdovščina</option>
@@ -911,6 +1558,10 @@
               Priimek
               <input id="uredi-priimek" name="uredi-priimek" type="text" placeholder="Vnesi priimek">
             </label>
+            <label for="uredi-telefon">
+              Telefonska številka
+              <input id="uredi-telefon" name="uredi-telefon" type="text" placeholder="Vnesi telefonsko številko">
+            </label>
             <label for="uredi-email">
               Email
               <input id="uredi-email" name="uredi-email" type="email" placeholder="Vnesi email">
@@ -933,6 +1584,14 @@
               Popust (%)
               <input id="uredi-popust" name="uredi-popust" type="number" min="0" max="100" step="1" value="0">
             </label>
+            <fieldset class="checkbox-group-field">
+              <legend class="checkbox-group-title">Status</legend>
+              <div class="checkbox-group-options">
+                <label><input id="uredi-status-student" name="uredi-status" type="checkbox" value="študent"> študent</label>
+                <label><input id="uredi-status-dijak" name="uredi-status" type="checkbox" value="dijak"> dijak</label>
+                <label><input id="uredi-status-upokojenec" name="uredi-status" type="checkbox" value="upokojenec"> upokojenec</label>
+              </div>
+            </fieldset>
             <label for="uredi-komentar">
               Komentar
               <textarea id="uredi-komentar" name="uredi-komentar" rows="4" placeholder="Dodaj komentar"></textarea>
@@ -1041,6 +1700,8 @@
     <div class="confirm-dialog">
       <p id="confirm-message">Ste prepričani?</p>
       <div class="training-row-actions">
+        <button class="secondary-button hidden" id="confirm-current" type="button">Samo trenutni</button>
+        <button class="primary-button compact hidden" id="confirm-all" type="button">Vsi termini</button>
         <button class="primary-button compact" id="confirm-ok" type="button">OK</button>
         <button class="secondary-button" id="confirm-cancel" type="button">Prekliči</button>
       </div>
@@ -1048,14 +1709,46 @@
   </div>
 
   <script>
+    const loginShell = document.getElementById("login-shell");
+    const appShell = document.getElementById("app-shell");
+    const loginForm = document.getElementById("login-form");
+    const loginUsernameInput = document.getElementById("login-username");
+    const loginPasswordInput = document.getElementById("login-password");
+    const loginStatus = document.getElementById("login-status");
+    const authHeading = document.getElementById("auth-heading");
+    const authSubheading = document.getElementById("auth-subheading");
+    const loginSubmitButton = document.getElementById("login-submit-button");
+    const toggleRegisterButton = document.getElementById("toggle-register-button");
+    const toggleLoginButton = document.getElementById("toggle-login-button");
+    const authUser = document.getElementById("auth-user");
+    const togglePasswordPanelButton = document.getElementById("toggle-password-panel");
+    const passwordPanel = document.getElementById("password-panel");
+    const passwordForm = document.getElementById("password-form");
+    const currentPasswordInput = document.getElementById("current-password");
+    const newPasswordInput = document.getElementById("new-password");
+    const confirmPasswordInput = document.getElementById("confirm-password");
+    const passwordStatus = document.getElementById("password-status");
+    const cancelPasswordPanelButton = document.getElementById("cancel-password-panel");
+    const logoutButton = document.getElementById("logout-button");
+    let appInitialized = false;
+    let authMode = "login";
+
     const tabs = [
       {
-        button: document.getElementById("tab-dodaj"),
-        panel: document.getElementById("panel-dodaj")
+        button: document.getElementById("tab-tedenski"),
+        panel: document.getElementById("panel-tedenski")
+      },
+      {
+        button: document.getElementById("tab-mesecni"),
+        panel: document.getElementById("panel-mesecni")
       },
       {
         button: document.getElementById("tab-belezka"),
         panel: document.getElementById("panel-belezka")
+      },
+      {
+        button: document.getElementById("tab-dodaj"),
+        panel: document.getElementById("panel-dodaj")
       },
       {
         button: document.getElementById("tab-stranke"),
@@ -1173,12 +1866,33 @@
     const imeStrankePovzetek = document.getElementById("ime-stranke-povzetek");
     const datumSelect = document.getElementById("datum");
     const vrstaVadbeSelect = document.getElementById("vrsta-vadbe");
+    const tedenskiGrid = document.getElementById("tedenski-grid");
+    const tedenskiNaslov = document.getElementById("tedenski-naslov");
+    const tedenskiEditorTitle = document.getElementById("tedenski-editor-title");
+    const tedenskiPrejsnjiButton = document.getElementById("tedenski-prejsnji");
+    const tedenskiNaslednjiButton = document.getElementById("tedenski-naslednji");
+    const tedenskiTermin = document.getElementById("tedenski-termin");
+    const tedenskiStrankeSelect = document.getElementById("tedenski-stranke");
+    const tedenskiStrankeToggle = document.getElementById("tedenski-stranke-toggle");
+    const tedenskiStrankeMenu = document.getElementById("tedenski-stranke-menu");
+    const tedenskiStrankePovzetek = document.getElementById("tedenski-stranke-povzetek");
+    const tedenskiVrstaVadbeSelect = document.getElementById("tedenski-vrsta-vadbe");
+    const tedenskiUraSelect = document.getElementById("tedenski-ura");
+    const tedenskiTrajanjeSelect = document.getElementById("tedenski-trajanje");
+    const tedenskiPonavljanjeInput = document.getElementById("tedenski-ponavljanje");
+    const tedenskiShraniButton = document.getElementById("tedenski-shrani");
+    const tedenskiIzbrisiButton = document.getElementById("tedenski-izbrisi");
+    const tedenskiStatus = document.getElementById("tedenski-status");
     const novoImeInput = document.getElementById("novo-ime");
     const novPriimekInput = document.getElementById("nov-priimek");
     const novEmailInput = document.getElementById("nov-email");
+    const novTelefonInput = document.getElementById("nov-telefon");
     const novKrajInput = document.getElementById("nov-kraj");
     const novRacunInput = document.getElementById("nov-racun");
     const novPopustInput = document.getElementById("nov-popust");
+    const novStatusStudentInput = document.getElementById("nov-status-student");
+    const novStatusDijakInput = document.getElementById("nov-status-dijak");
+    const novStatusUpokojenecInput = document.getElementById("nov-status-upokojenec");
     const novKomentarInput = document.getElementById("nov-komentar");
     const novDatotekeInput = document.getElementById("nov-datoteke");
     const statusDatotekeNove = document.getElementById("status-datoteke-nove");
@@ -1189,9 +1903,13 @@
     const urediImeInput = document.getElementById("uredi-ime");
     const urediPriimekInput = document.getElementById("uredi-priimek");
     const urediEmailInput = document.getElementById("uredi-email");
+    const urediTelefonInput = document.getElementById("uredi-telefon");
     const urediKrajInput = document.getElementById("uredi-kraj");
     const urediRacunInput = document.getElementById("uredi-racun");
     const urediPopustInput = document.getElementById("uredi-popust");
+    const urediStatusStudentInput = document.getElementById("uredi-status-student");
+    const urediStatusDijakInput = document.getElementById("uredi-status-dijak");
+    const urediStatusUpokojenecInput = document.getElementById("uredi-status-upokojenec");
     const urediKomentarInput = document.getElementById("uredi-komentar");
     const urediDatotekeInput = document.getElementById("uredi-datoteke");
     const urediDatotekeSeznam = document.getElementById("uredi-datoteke-seznam");
@@ -1202,6 +1920,7 @@
     const izbrisiStrankoGumb = document.getElementById("izbrisi-stranko-gumb");
     const statusBrisanja = document.getElementById("status-brisanja");
     const filterKrajStrankSelect = document.getElementById("filter-kraj-strank");
+    const filterStrankaPregledSelect = document.getElementById("filter-stranka-pregled");
     const seznamStrank = document.getElementById("seznam-strank");
     const STORAGE_KEY = "fibula_customers_v1";
     const CENIK_STORAGE_KEY = "fibula_cenik_v1";
@@ -1243,8 +1962,29 @@
     const koledarNaslov = document.getElementById("koledar-naslov");
     const koledarGrid = document.getElementById("koledar-grid");
     const koledarIzbor = document.getElementById("koledar-izbor");
+    const mesecniPanel = document.getElementById("panel-mesecni");
+    const mesecniPrejsnjiButton = mesecniPanel.querySelector("#mesecni-prejsnji");
+    const mesecniNaslednjiButton = mesecniPanel.querySelector("#mesecni-naslednji");
+    const mesecniNaslov = mesecniPanel.querySelector("#mesecni-naslov");
+    const mesecniFilterMesecSelect = mesecniPanel.querySelector("#mesecni-filter-mesec");
+    const mesecniFilterMesecToggle = mesecniPanel.querySelector("#mesecni-filter-mesec-toggle");
+    const mesecniFilterMesecMenu = mesecniPanel.querySelector("#mesecni-filter-mesec-menu");
+    const mesecniFilterMesecPovzetek = mesecniPanel.querySelector("#mesecni-filter-mesec-povzetek");
+    const mesecniFilterLetoSelect = mesecniPanel.querySelector("#mesecni-filter-leto");
+    const mesecniFilterLetoToggle = mesecniPanel.querySelector("#mesecni-filter-leto-toggle");
+    const mesecniFilterLetoMenu = mesecniPanel.querySelector("#mesecni-filter-leto-menu");
+    const mesecniFilterLetoPovzetek = mesecniPanel.querySelector("#mesecni-filter-leto-povzetek");
+    const mesecniFilterStrankaSelect = mesecniPanel.querySelector("#mesecni-filter-stranka");
+    const mesecniFilterStrankaToggle = mesecniPanel.querySelector("#mesecni-filter-stranka-toggle");
+    const mesecniFilterStrankaMenu = mesecniPanel.querySelector("#mesecni-filter-stranka-menu");
+    const mesecniFilterStrankaPovzetek = mesecniPanel.querySelector("#mesecni-filter-stranka-povzetek");
+    const mesecniFilterKrajSelect = mesecniPanel.querySelector("#mesecni-filter-kraj");
+    const mesecniFiltri = mesecniPanel.querySelector("#mesecni-filtri");
+    const mesecniGrid = mesecniPanel.querySelector("#mesecni-grid");
     const confirmOverlay = document.getElementById("confirm-overlay");
     const confirmMessage = document.getElementById("confirm-message");
+    const confirmCurrentButton = document.getElementById("confirm-current");
+    const confirmAllButton = document.getElementById("confirm-all");
     const confirmOkButton = document.getElementById("confirm-ok");
     const confirmCancelButton = document.getElementById("confirm-cancel");
     const formatter = new Intl.DateTimeFormat("sl-SI", {
@@ -1256,7 +1996,15 @@
       month: "long",
       year: "numeric"
     });
-    const isStaticDeployment = !["127.0.0.1", "localhost"].includes(window.location.hostname);
+    const weekRangeFormatter = new Intl.DateTimeFormat("sl-SI", {
+      day: "numeric",
+      month: "numeric"
+    });
+    const weekdayFormatter = new Intl.DateTimeFormat("sl-SI", {
+      weekday: "long"
+    });
+    let isStaticDeployment = false;
+    let backendAvailable = false;
     const TRENINGI_STORAGE_KEY = "fibula_treningi_v1";
     const defaultCenikValues = {
       individualna: 50,
@@ -1282,10 +2030,71 @@
       { name: "Ana Curk", email: "", kraj: "", racun: "", datoteke: [], komentar: "" },
       { name: "Beočanin žena", email: "", kraj: "", racun: "", datoteke: [], komentar: "" }
     ];
+    defaultCustomers.forEach((customer) => {
+      customer.telefon = customer.telefon || "";
+      customer.popust = customer.popust || "0";
+      customer.statusi = Array.isArray(customer.statusi) ? customer.statusi : [];
+    });
+
+    const posebniStatusi = ["študent", "dijak", "upokojenec"];
+
+    function normalizeCustomerStatuses(value) {
+      const source = Array.isArray(value)
+        ? value
+        : typeof value === "string" && value
+          ? (() => {
+              try {
+                const parsed = JSON.parse(value);
+                return Array.isArray(parsed) ? parsed : [value];
+              } catch (error) {
+                return value.split(",").map((item) => item.trim()).filter(Boolean);
+              }
+            })()
+          : [];
+
+      return source.filter((item, index) => posebniStatusi.includes(item) && source.indexOf(item) === index);
+    }
+
+    function getSelectedStatusesFromInputs(inputs) {
+      return inputs.filter((input) => input.checked).map((input) => input.value);
+    }
+
+    function setSelectedStatusesToInputs(inputs, statuses) {
+      const normalized = normalizeCustomerStatuses(statuses);
+      inputs.forEach((input) => {
+        input.checked = normalized.includes(input.value);
+      });
+    }
+
+    function formatStatuses(statuses) {
+      const normalized = normalizeCustomerStatuses(statuses);
+      return normalized.length ? normalized.join(", ") : "-";
+    }
+    let appState = {
+      customers: [...defaultCustomers],
+      treningi: [],
+      cenik: {
+        "Ajdovščina": { ...defaultCenikValues },
+        "Idrija": { ...defaultCenikValues }
+      }
+    };
     let currentEditFiles = [];
     let removedEditFiles = [];
     let calendarViewDate = new Date();
+    let monthlyDiaryViewDate = new Date();
+    let currentWeekStart = (() => {
+      const date = new Date();
+      date.setHours(12, 0, 0, 0);
+      const weekday = (date.getDay() + 6) % 7;
+      date.setDate(date.getDate() - weekday);
+      return date;
+    })();
+    let selectedWeeklySlot = null;
+    let selectedWeeklyTrainingId = "";
+    let selectedWeeklyTrainingIds = [];
     let confirmAction = null;
+    let confirmCurrentAction = null;
+    let confirmAllAction = null;
     const selectedTrainingDates = new Set();
     const vrstaVadbeToCenikKey = {
       "individualna": "individualna",
@@ -1320,6 +2129,23 @@
       };
     }
 
+    function formatCustomerDisplayName(fullName) {
+      const details = splitFullName(fullName);
+      return details.priimek ? `${details.priimek} ${details.ime}` : details.ime;
+    }
+
+    function compareCustomerNamesBySurname(aName, bName) {
+      const aDetails = splitFullName(aName || "");
+      const bDetails = splitFullName(bName || "");
+      const aSurname = aDetails.priimek || aDetails.ime;
+      const bSurname = bDetails.priimek || bDetails.ime;
+      const surnameCompare = aSurname.localeCompare(bSurname, "sl");
+      if (surnameCompare !== 0) {
+        return surnameCompare;
+      }
+      return aDetails.ime.localeCompare(bDetails.ime, "sl");
+    }
+
     function roundCurrency(value) {
       return Math.round((Number(value) + Number.EPSILON) * 100) / 100;
     }
@@ -1328,15 +2154,553 @@
       return roundCurrency(value).toFixed(2);
     }
 
+    function cloneData(value) {
+      return JSON.parse(JSON.stringify(value));
+    }
+
+    function normalizeCustomers(customers) {
+      if (!Array.isArray(customers)) {
+        return cloneData(defaultCustomers);
+      }
+
+      const normalized = customers
+        .filter((customer) => customer && typeof customer.name === "string" && customer.name.trim())
+          .map((customer) => ({
+            name: customer.name.trim(),
+            email: typeof customer.email === "string" ? customer.email : "",
+            telefon: typeof customer.telefon === "string" ? customer.telefon : "",
+            kraj: typeof customer.kraj === "string" ? customer.kraj : "",
+            racun: typeof customer.racun === "string" ? customer.racun : "",
+            popust: customer?.popust != null ? String(customer.popust) : "0",
+            statusi: normalizeCustomerStatuses(customer?.statusi),
+            datoteke: Array.isArray(customer.datoteke)
+              ? customer.datoteke
+                  .filter((item) => item && typeof item.name === "string" && typeof item.url === "string")
+                .map((item) => ({ name: item.name, url: item.url }))
+            : [],
+          komentar: typeof customer.komentar === "string" ? customer.komentar : ""
+        }));
+
+      return normalized.length > 0 ? normalized : cloneData(defaultCustomers);
+    }
+
+    function normalizeCenik(cenik) {
+      const normalized = {};
+      ["Ajdovščina", "Idrija"].forEach((kraj) => {
+        const source = cenik?.[kraj] && typeof cenik[kraj] === "object" ? cenik[kraj] : {};
+        normalized[kraj] = Object.fromEntries(
+          Object.entries({ ...defaultCenikValues, ...source }).map(([key, value]) => [key, Number(value) || 0])
+        );
+      });
+      return normalized;
+    }
+
+    function normalizeTreningi(treningi) {
+      if (!Array.isArray(treningi)) {
+        return [];
+      }
+
+      return treningi.map((trening) => ({
+        ...trening,
+        trajanje: Number(trening?.trajanje) || 60,
+        seriesId: typeof trening?.seriesId === "string" ? trening.seriesId : "",
+        recurring: Boolean(trening?.recurring),
+        ura: typeof trening?.ura === "string" ? trening.ura : "",
+        id: trening?.id || createTrainingId()
+      }));
+    }
+
+    function setAppState(nextState) {
+      appState = {
+        customers: normalizeCustomers(nextState?.customers),
+        treningi: normalizeTreningi(nextState?.treningi || []),
+        cenik: normalizeCenik(nextState?.cenik || {})
+      };
+    }
+
+    function getLocalFallbackState() {
+      let customers = cloneData(defaultCustomers);
+      let treningi = [];
+      let cenik = cloneData(defaultCenik);
+
+      try {
+        const savedCustomers = localStorage.getItem(STORAGE_KEY);
+        if (savedCustomers) {
+          customers = normalizeCustomers(JSON.parse(savedCustomers));
+        }
+      } catch (error) {
+        console.error("Napaka pri branju lokalnih strank:", error);
+      }
+
+      try {
+        const savedTreningi = localStorage.getItem(TRENINGI_STORAGE_KEY);
+        if (savedTreningi) {
+          treningi = normalizeTreningi(JSON.parse(savedTreningi));
+        }
+      } catch (error) {
+        console.error("Napaka pri branju lokalnih treningov:", error);
+      }
+
+      try {
+        const savedCenik = localStorage.getItem(CENIK_STORAGE_KEY);
+        if (savedCenik) {
+          cenik = normalizeCenik(JSON.parse(savedCenik));
+        }
+      } catch (error) {
+        console.error("Napaka pri branju lokalnega cenika:", error);
+      }
+
+      return { customers, treningi, cenik };
+    }
+
+    function setAuthenticatedView(isAuthenticated, username = "") {
+      loginShell.classList.toggle("hidden", isAuthenticated);
+      appShell.classList.toggle("hidden", !isAuthenticated);
+      authUser.textContent = isAuthenticated ? `Prijavljen: ${username}` : "";
+      if (!isAuthenticated) {
+        passwordPanel.classList.add("hidden");
+        passwordForm.reset();
+        passwordStatus.textContent = "";
+      }
+    }
+
+    function setAuthMode(mode, registrationAvailable = false) {
+      authMode = mode;
+      const registerMode = mode === "register";
+      authHeading.textContent = registerMode ? "Registracija" : "Prijava";
+      authSubheading.textContent = registerMode
+        ? "Ustvari glavni račun za dostop do portala."
+        : "Za dostop do portala se prijavi z uporabniškim imenom in geslom.";
+      loginSubmitButton.textContent = registerMode ? "Registriraj se" : "Prijava";
+      toggleRegisterButton.classList.toggle("hidden", registerMode || !registrationAvailable);
+      toggleLoginButton.classList.toggle("hidden", !registerMode);
+      loginStatus.textContent = "";
+    }
+
+    async function getSessionInfo() {
+      const response = await fetch("/api/session", { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error("Session fetch failed.");
+      }
+      return response.json();
+    }
+
+    async function loadAppState() {
+      try {
+        const response = await fetch("/api/state", { cache: "no-store" });
+        if (response.status === 401) {
+          throw new Error("AUTH_REQUIRED");
+        }
+        if (!response.ok) {
+          throw new Error("State fetch failed.");
+        }
+
+        const state = await response.json();
+        backendAvailable = true;
+        isStaticDeployment = false;
+        setAppState(state);
+      } catch (error) {
+        if (error.message === "AUTH_REQUIRED") {
+          backendAvailable = true;
+          isStaticDeployment = false;
+          throw error;
+        }
+        backendAvailable = false;
+        isStaticDeployment = true;
+        setAppState(getLocalFallbackState());
+      }
+    }
+
+    async function persistAppState() {
+      if (backendAvailable) {
+        const response = await fetch("/api/state", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(appState)
+        });
+
+        if (!response.ok) {
+          throw new Error("State save failed.");
+        }
+
+        const savedState = await response.json();
+        setAppState(savedState);
+        return;
+      }
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(appState.customers));
+      localStorage.setItem(TRENINGI_STORAGE_KEY, JSON.stringify(appState.treningi));
+      localStorage.setItem(CENIK_STORAGE_KEY, JSON.stringify(appState.cenik));
+    }
+
     function openConfirmDialog(message, onConfirm) {
       confirmMessage.textContent = message;
       confirmAction = onConfirm;
+      confirmCurrentAction = null;
+      confirmAllAction = null;
+      confirmCurrentButton.classList.add("hidden");
+      confirmAllButton.classList.add("hidden");
+      confirmOkButton.classList.remove("hidden");
+      confirmOverlay.classList.add("open");
+    }
+
+    function openRecurringChoiceDialog(message, onCurrent, onAll) {
+      confirmMessage.textContent = message;
+      confirmAction = null;
+      confirmCurrentAction = onCurrent;
+      confirmAllAction = onAll;
+      confirmCurrentButton.classList.remove("hidden");
+      confirmAllButton.classList.remove("hidden");
+      confirmOkButton.classList.add("hidden");
       confirmOverlay.classList.add("open");
     }
 
     function closeConfirmDialog() {
       confirmOverlay.classList.remove("open");
       confirmAction = null;
+      confirmCurrentAction = null;
+      confirmAllAction = null;
+      confirmCurrentButton.classList.add("hidden");
+      confirmAllButton.classList.add("hidden");
+      confirmOkButton.classList.remove("hidden");
+    }
+
+    function getSelectedWeeklyTrainings() {
+      if (selectedWeeklyTrainingIds.length === 0) {
+        return [];
+      }
+
+      return readTreningi().filter((item) => selectedWeeklyTrainingIds.includes(item.id));
+    }
+
+    function isRecurringWeeklySelection(trainings = getSelectedWeeklyTrainings()) {
+      return trainings.some((item) => Boolean(item?.recurring) || Boolean(item?.seriesId));
+    }
+
+    function getFilteredTreningi(treningi = readTreningi()) {
+      const selectedMeseci = getSelectedTrainingFilterMonths();
+      const selectedLeta = getSelectedTrainingFilterYears();
+      const selectedStranke = getSelectedTrainingFilterCustomers();
+      const selectedKraj = filterTreningKrajSelect.value;
+
+      return treningi.filter((trening) => {
+        const datum = trening.datum || "";
+        const matchesMesec = selectedMeseci.length === 0 || selectedMeseci.includes(datum.slice(5, 7));
+        const matchesLeto = selectedLeta.length === 0 || selectedLeta.includes(datum.slice(0, 4));
+        const matchesStranka = selectedStranke.length === 0 || selectedStranke.includes(trening.imeStranke);
+        const matchesKraj = !selectedKraj || trening.kraj === selectedKraj;
+        const matchesDatum = selectedTrainingDates.size === 0 || selectedTrainingDates.has(datum);
+        return matchesMesec && matchesLeto && matchesStranka && matchesKraj && matchesDatum;
+      });
+    }
+
+    function getFilteredMonthlyTreningi(treningi = readTreningi()) {
+      const selectedMeseci = getSelectedMonthlyFilterMonths();
+      const selectedLeta = getSelectedMonthlyFilterYears();
+      const selectedStranke = getSelectedMonthlyFilterCustomers();
+      const selectedKraj = mesecniFilterKrajSelect.value;
+
+      return treningi.filter((trening) => {
+        const datum = trening.datum || "";
+        const matchesMesec = selectedMeseci.length === 0 || selectedMeseci.includes(datum.slice(5, 7));
+        const matchesLeto = selectedLeta.length === 0 || selectedLeta.includes(datum.slice(0, 4));
+        const matchesStranka = selectedStranke.length === 0 || selectedStranke.includes(trening.imeStranke);
+        const matchesKraj = !selectedKraj || trening.kraj === selectedKraj;
+        return matchesMesec && matchesLeto && matchesStranka && matchesKraj;
+      });
+    }
+
+    function renderMonthlyFilterSummary() {
+      mesecniFiltri.innerHTML = "";
+    }
+
+    function normalizeMonthlyLayout() {
+      const monthDiary = mesecniPanel.querySelector(".month-diary");
+      if (!monthDiary) {
+        return;
+      }
+
+      const labels = Array.from(monthDiary.querySelectorAll('label[for^="mesecni-filter-"]'));
+      const controls = document.createElement("div");
+      controls.className = "month-diary-controls";
+      labels.forEach((label) => controls.appendChild(label));
+
+      const toolbar = document.createElement("div");
+      toolbar.className = "month-diary-toolbar";
+
+      const titlebar = document.createElement("div");
+      titlebar.className = "month-diary-titlebar";
+      titlebar.append(mesecniPrejsnjiButton, mesecniNaslov, mesecniNaslednjiButton);
+      toolbar.appendChild(titlebar);
+
+      monthDiary.replaceChildren(controls, toolbar, mesecniGrid);
+    }
+
+    function resetDiaryFilters() {
+      const today = new Date();
+      const defaultYear = String(today.getFullYear());
+      const defaultMonth = String(today.getMonth() + 1).padStart(2, "0");
+
+      Array.from(filterTreningMesecSelect.options).forEach((option) => {
+        option.selected = option.value === defaultMonth;
+      });
+      Array.from(filterTreningLetoSelect.options).forEach((option) => {
+        option.selected = option.value === defaultYear;
+      });
+      Array.from(filterTreningStrankaSelect.options).forEach((option) => {
+        option.selected = false;
+      });
+      filterTreningKrajSelect.value = "";
+      selectedTrainingDates.clear();
+      renderTrainingFilterMonthMenu();
+      renderTrainingFilterYearMenu();
+      renderTrainingFilterCustomerMenu();
+      renderTrainingCalendar();
+    }
+
+    function resetMonthlyFilters() {
+      const today = new Date();
+      const defaultYear = String(today.getFullYear());
+      const defaultMonth = String(today.getMonth() + 1).padStart(2, "0");
+
+      Array.from(mesecniFilterMesecSelect.options).forEach((option) => {
+        option.selected = option.value === defaultMonth;
+      });
+      Array.from(mesecniFilterLetoSelect.options).forEach((option) => {
+        option.selected = option.value === defaultYear;
+      });
+      Array.from(mesecniFilterStrankaSelect.options).forEach((option) => {
+        option.selected = false;
+      });
+      mesecniFilterKrajSelect.value = "";
+      monthlyDiaryViewDate = new Date(today.getFullYear(), today.getMonth(), 1);
+      renderMonthlyFilterMonthMenu();
+      renderMonthlyFilterYearMenu();
+      renderMonthlyFilterCustomerMenu();
+      renderMonthlyDiaryCalendar();
+    }
+
+    function syncMonthlyMonthYearToViewDate() {
+      const monthValue = String(monthlyDiaryViewDate.getMonth() + 1).padStart(2, "0");
+      const yearValue = String(monthlyDiaryViewDate.getFullYear());
+
+      Array.from(mesecniFilterMesecSelect.options).forEach((option) => {
+        option.selected = option.value === monthValue;
+      });
+      Array.from(mesecniFilterLetoSelect.options).forEach((option) => {
+        option.selected = option.value === yearValue;
+      });
+
+      renderMonthlyDiaryCalendar();
+    }
+
+    function getSelectedMonthlyFilterMonths() {
+      return Array.from(mesecniFilterMesecSelect.selectedOptions).map((option) => option.value).filter(Boolean);
+    }
+
+    function getSelectedMonthlyFilterYears() {
+      return Array.from(mesecniFilterLetoSelect.selectedOptions).map((option) => option.value).filter(Boolean);
+    }
+
+    function getSelectedMonthlyFilterCustomers() {
+      return Array.from(mesecniFilterStrankaSelect.selectedOptions).map((option) => option.value).filter(Boolean);
+    }
+
+    function updateMonthlyFilterMonthSummary() {
+      const selected = getSelectedMonthlyFilterMonths();
+      mesecniFilterMesecPovzetek.textContent = selected.length === 0
+        ? "Vsi meseci"
+        : selected.length === 1
+          ? String(Number(selected[0]))
+          : `${selected.length} izbranih mesecev`;
+    }
+
+    function updateMonthlyFilterYearSummary() {
+      const selected = getSelectedMonthlyFilterYears();
+      mesecniFilterLetoPovzetek.textContent = selected.length === 0
+        ? "Vsa leta"
+        : selected.length === 1
+          ? formatCustomerDisplayName(selected[0])
+          : `${selected.length} izbranih let`;
+    }
+
+    function updateMonthlyFilterCustomerSummary() {
+      const selected = getSelectedMonthlyFilterCustomers();
+      mesecniFilterStrankaPovzetek.textContent = selected.length === 0
+        ? "Vse stranke"
+        : selected.length === 1
+          ? formatCustomerDisplayName(selected[0])
+          : `${selected.length} izbranih strank`;
+    }
+
+    function renderMonthlyFilterMonthMenu() {
+      mesecniFilterMesecMenu.innerHTML = "";
+
+      const actions = document.createElement("div");
+      actions.className = "multiselect-actions";
+
+      const selectAllButton = document.createElement("button");
+      selectAllButton.type = "button";
+      selectAllButton.className = "multiselect-action-button";
+      selectAllButton.textContent = "Izberi vse";
+      selectAllButton.addEventListener("click", () => {
+        Array.from(mesecniFilterMesecSelect.options).forEach((option) => {
+          option.selected = true;
+        });
+        renderMonthlyFilterMonthMenu();
+        renderMonthlyDiaryCalendar();
+      });
+
+      const clearAllButton = document.createElement("button");
+      clearAllButton.type = "button";
+      clearAllButton.className = "multiselect-action-button";
+      clearAllButton.textContent = "Počisti vse";
+      clearAllButton.addEventListener("click", () => {
+        Array.from(mesecniFilterMesecSelect.options).forEach((option) => {
+          option.selected = false;
+        });
+        renderMonthlyFilterMonthMenu();
+        renderMonthlyDiaryCalendar();
+      });
+
+      actions.append(selectAllButton, clearAllButton);
+      mesecniFilterMesecMenu.appendChild(actions);
+
+      Array.from(mesecniFilterMesecSelect.options).forEach((option) => {
+        const row = document.createElement("label");
+        row.className = "multiselect-option";
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = option.selected;
+        checkbox.addEventListener("change", () => {
+          option.selected = checkbox.checked;
+          updateMonthlyFilterMonthSummary();
+          renderMonthlyDiaryCalendar();
+        });
+
+        const text = document.createElement("span");
+        text.textContent = option.textContent;
+
+        row.append(checkbox, text);
+        mesecniFilterMesecMenu.appendChild(row);
+      });
+
+      updateMonthlyFilterMonthSummary();
+    }
+
+    function renderMonthlyFilterYearMenu() {
+      mesecniFilterLetoMenu.innerHTML = "";
+
+      const actions = document.createElement("div");
+      actions.className = "multiselect-actions";
+
+      const selectAllButton = document.createElement("button");
+      selectAllButton.type = "button";
+      selectAllButton.className = "multiselect-action-button";
+      selectAllButton.textContent = "Izberi vse";
+      selectAllButton.addEventListener("click", () => {
+        Array.from(mesecniFilterLetoSelect.options).forEach((option) => {
+          option.selected = true;
+        });
+        renderMonthlyFilterYearMenu();
+        renderMonthlyDiaryCalendar();
+      });
+
+      const clearAllButton = document.createElement("button");
+      clearAllButton.type = "button";
+      clearAllButton.className = "multiselect-action-button";
+      clearAllButton.textContent = "Počisti vse";
+      clearAllButton.addEventListener("click", () => {
+        Array.from(mesecniFilterLetoSelect.options).forEach((option) => {
+          option.selected = false;
+        });
+        renderMonthlyFilterYearMenu();
+        renderMonthlyDiaryCalendar();
+      });
+
+      actions.append(selectAllButton, clearAllButton);
+      mesecniFilterLetoMenu.appendChild(actions);
+
+      Array.from(mesecniFilterLetoSelect.options).forEach((option) => {
+        const row = document.createElement("label");
+        row.className = "multiselect-option";
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = option.selected;
+        checkbox.addEventListener("change", () => {
+          option.selected = checkbox.checked;
+          updateMonthlyFilterYearSummary();
+          renderMonthlyDiaryCalendar();
+        });
+
+        const text = document.createElement("span");
+        text.textContent = option.textContent;
+
+        row.append(checkbox, text);
+        mesecniFilterLetoMenu.appendChild(row);
+      });
+
+      updateMonthlyFilterYearSummary();
+    }
+
+    function renderMonthlyFilterCustomerMenu() {
+      mesecniFilterStrankaMenu.innerHTML = "";
+
+      const actions = document.createElement("div");
+      actions.className = "multiselect-actions";
+
+      const selectAllButton = document.createElement("button");
+      selectAllButton.type = "button";
+      selectAllButton.className = "multiselect-action-button";
+      selectAllButton.textContent = "Izberi vse";
+      selectAllButton.addEventListener("click", () => {
+        Array.from(mesecniFilterStrankaSelect.options).forEach((option) => {
+          option.selected = true;
+        });
+        renderMonthlyFilterCustomerMenu();
+        renderMonthlyDiaryCalendar();
+      });
+
+      const clearAllButton = document.createElement("button");
+      clearAllButton.type = "button";
+      clearAllButton.className = "multiselect-action-button";
+      clearAllButton.textContent = "Počisti vse";
+      clearAllButton.addEventListener("click", () => {
+        Array.from(mesecniFilterStrankaSelect.options).forEach((option) => {
+          option.selected = false;
+        });
+        renderMonthlyFilterCustomerMenu();
+        renderMonthlyDiaryCalendar();
+      });
+
+      actions.append(selectAllButton, clearAllButton);
+      mesecniFilterStrankaMenu.appendChild(actions);
+
+      Array.from(mesecniFilterStrankaSelect.options).forEach((option) => {
+        const row = document.createElement("label");
+        row.className = "multiselect-option";
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = option.selected;
+        checkbox.addEventListener("change", () => {
+          option.selected = checkbox.checked;
+          updateMonthlyFilterCustomerSummary();
+          renderMonthlyDiaryCalendar();
+        });
+
+        const text = document.createElement("span");
+        text.textContent = option.textContent;
+
+        row.append(checkbox, text);
+        mesecniFilterStrankaMenu.appendChild(row);
+      });
+
+      updateMonthlyFilterCustomerSummary();
     }
 
     function getSelectedFileNames(fileInput) {
@@ -1432,33 +2796,12 @@
     }
 
     function getStoredCenik() {
-      const saved = localStorage.getItem(CENIK_STORAGE_KEY);
-
-      if (!saved) {
-        return { ...defaultCenik };
-      }
-
-      try {
-        const parsed = JSON.parse(saved);
-        const ajdovscina = parsed?.["Ajdovščina"] && typeof parsed["Ajdovščina"] === "object" ? parsed["Ajdovščina"] : {};
-        const idrija = parsed?.Idrija && typeof parsed.Idrija === "object" ? parsed.Idrija : {};
-
-        return {
-          "Ajdovščina": Object.fromEntries(
-            Object.entries({ ...defaultCenikValues, ...ajdovscina }).map(([key, value]) => [key, Number(value) || 0])
-          ),
-          "Idrija": Object.fromEntries(
-            Object.entries({ ...defaultCenikValues, ...idrija }).map(([key, value]) => [key, Number(value) || 0])
-          )
-        };
-      } catch (error) {
-        console.error("Napaka pri branju cenika:", error);
-        return { ...defaultCenik };
-      }
+      return appState.cenik;
     }
 
     function saveCenik(cenik) {
-      localStorage.setItem(CENIK_STORAGE_KEY, JSON.stringify(cenik));
+      appState.cenik = normalizeCenik(cenik);
+      void persistAppState();
     }
 
     function fillCenikForm(cenik) {
@@ -1548,15 +2891,42 @@
       });
     }
 
-    function getCurrentTrainingPrice(vrstaVadbe, kraj, racun = "da", popust = 0) {
+    function getCurrentTrainingPrice(vrstaVadbe, kraj, racun = "da", popust = 0, statusi = []) {
       const cenik = getStoredCenik();
       const cenikKey = vrstaVadbeToCenikKey[vrstaVadbe];
       const basePrice = cenikKey ? cenik[kraj][cenikKey] : 0;
       const racunDiscountedPrice = racun === "ne" ? basePrice * 0.78 : basePrice;
+      const statusDiscountedPrice = normalizeCustomerStatuses(statusi).length > 0 ? racunDiscountedPrice * 0.9 : racunDiscountedPrice;
       const normalizedPopust = Math.max(0, Math.min(100, Number(popust) || 0));
-      const finalPrice = racunDiscountedPrice * (1 - normalizedPopust / 100);
+      const finalPrice = statusDiscountedPrice * (1 - normalizedPopust / 100);
       return roundCurrency(finalPrice);
     }
+
+    function getCustomerDataByName(customerName) {
+      const option = Array.from(imeStrankeSelect.options).find((item) => item.value === customerName);
+        if (option) {
+          return {
+            name: option.value,
+            kraj: option.dataset.kraj || "",
+            racun: option.dataset.racun || "da",
+            popust: option.dataset.popust || "0",
+            statusi: normalizeCustomerStatuses(option.dataset.statusi)
+          };
+        }
+
+      const customer = appState.customers.find((item) => item.name === customerName);
+      if (!customer) {
+        return null;
+      }
+
+        return {
+          name: customer.name,
+          kraj: customer.kraj || "",
+          racun: customer.racun || "da",
+          popust: customer.popust || "0",
+          statusi: normalizeCustomerStatuses(customer.statusi)
+        };
+      }
 
     function createTrainingId() {
       return `trening_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
@@ -1572,45 +2942,89 @@
       return formatter.format(date);
     }
 
+    function buildTrainingsForCustomers(
+      customerOptions,
+      datumValue,
+      vrstaVadbe,
+      ura = "",
+      trajanje = 60,
+      recurring = false,
+      seriesId = "",
+      repeatCount = recurring ? 52 : 1,
+      weekOffsetStart = 0
+    ) {
+      const resolvedSeriesId = recurring ? (seriesId || `series_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`) : "";
+      const nextTrainings = [];
+
+      for (let weekOffset = weekOffsetStart; weekOffset < weekOffsetStart + repeatCount; weekOffset += 1) {
+        const baseDate = createDateFromIso(datumValue);
+        baseDate.setDate(baseDate.getDate() + (weekOffset * 7));
+        const occurrenceDate = formatDateIso(baseDate);
+        const datumPrikaz = formatTrainingDisplayDate(occurrenceDate);
+
+        customerOptions
+          .slice()
+          .reverse()
+          .forEach((option) => {
+            const customerData = getCustomerDataByName(option.value);
+            const kraj = customerData?.kraj || option.dataset.kraj || "";
+            const cena = getCurrentTrainingPrice(
+              vrstaVadbe,
+              kraj,
+              customerData?.racun || option.dataset.racun || "da",
+              customerData?.popust || option.dataset.popust || "0",
+              customerData?.statusi || option.dataset.statusi
+            );
+
+            nextTrainings.unshift({
+              id: createTrainingId(),
+              imeStranke: option.value,
+              datum: occurrenceDate,
+              datumPrikaz,
+              ura,
+              trajanje,
+              seriesId: resolvedSeriesId,
+              recurring,
+              kraj,
+              vrstaVadbe,
+              cena
+            });
+          });
+      }
+
+      return nextTrainings;
+    }
+
+    function addTrainingsForCustomers(
+      customerOptions,
+      datumValue,
+      vrstaVadbe,
+      ura = "",
+      trajanje = 60,
+      recurring = false,
+      seriesId = ""
+    ) {
+      const treningi = readTreningi();
+      const nextTrainings = buildTrainingsForCustomers(
+        customerOptions,
+        datumValue,
+        vrstaVadbe,
+        ura,
+        trajanje,
+        recurring,
+        seriesId
+      );
+
+      saveTreningi([...nextTrainings, ...treningi]);
+    }
+
     function readTreningi() {
-      const saved = localStorage.getItem(TRENINGI_STORAGE_KEY);
-
-      if (!saved) {
-        return [];
-      }
-
-      try {
-        const parsed = JSON.parse(saved);
-        if (!Array.isArray(parsed)) {
-          return [];
-        }
-
-        let hasGeneratedId = false;
-        const normalized = parsed.map((trening) => {
-          if (trening?.id) {
-            return trening;
-          }
-
-          hasGeneratedId = true;
-          return {
-            ...trening,
-            id: createTrainingId()
-          };
-        });
-
-        if (hasGeneratedId) {
-          saveTreningi(normalized);
-        }
-
-        return normalized;
-      } catch (error) {
-        console.error("Napaka pri branju treningov:", error);
-        return [];
-      }
+      return appState.treningi;
     }
 
     function saveTreningi(treningi) {
-      localStorage.setItem(TRENINGI_STORAGE_KEY, JSON.stringify(treningi));
+      appState.treningi = normalizeTreningi(treningi);
+      void persistAppState();
     }
 
     function getSelectedTrainingFilterMonths() {
@@ -1639,7 +3053,7 @@
       filterTreningLetoPovzetek.textContent = selected.length === 0
         ? "Vsa leta"
         : selected.length === 1
-          ? selected[0]
+          ? formatCustomerDisplayName(selected[0])
           : `${selected.length} izbranih let`;
     }
 
@@ -1766,7 +3180,7 @@
       filterTreningStrankaPovzetek.textContent = selected.length === 0
         ? "Vse stranke"
         : selected.length === 1
-          ? selected[0]
+          ? formatCustomerDisplayName(selected[0])
           : `${selected.length} izbranih strank`;
     }
 
@@ -1817,7 +3231,7 @@
         });
 
         const text = document.createElement("span");
-        text.textContent = option.value;
+        text.textContent = formatCustomerDisplayName(option.value);
 
         row.append(checkbox, text);
         filterTreningStrankaMenu.appendChild(row);
@@ -1833,13 +3247,17 @@
       const currentYears = new Set(getSelectedTrainingFilterYears());
       const currentMonths = new Set(getSelectedTrainingFilterMonths());
       const currentCustomers = new Set(getSelectedTrainingFilterCustomers());
+      const currentMonthlyYears = new Set(getSelectedMonthlyFilterYears());
+      const currentMonthlyMonths = new Set(getSelectedMonthlyFilterMonths());
+      const currentMonthlyCustomers = new Set(getSelectedMonthlyFilterCustomers());
       const years = [...new Set([
         "2025",
         "2027",
         defaultYear,
         ...treningi.map((trening) => (trening.datum || "").slice(0, 4)).filter(Boolean)
       ])].sort().reverse();
-      const customers = [...new Set(treningi.map((trening) => trening.imeStranke).filter(Boolean))].sort((a, b) => a.localeCompare(b, "sl"));
+      const customers = [...new Set(treningi.map((trening) => trening.imeStranke).filter(Boolean))]
+        .sort((a, b) => compareCustomerNamesBySurname(a, b));
 
       filterTreningLetoSelect.innerHTML = "";
       years.forEach((year) => {
@@ -1854,7 +3272,7 @@
       customers.forEach((customer) => {
         const option = document.createElement("option");
         option.value = customer;
-        option.textContent = customer;
+        option.textContent = formatCustomerDisplayName(customer);
         option.selected = currentCustomers.has(customer);
         filterTreningStrankaSelect.appendChild(option);
       });
@@ -1866,30 +3284,46 @@
       renderTrainingFilterMonthMenu();
       renderTrainingFilterYearMenu();
       renderTrainingFilterCustomerMenu();
+
+      mesecniFilterLetoSelect.innerHTML = "";
+      years.forEach((year) => {
+        const option = document.createElement("option");
+        option.value = year;
+        option.textContent = year;
+        option.selected = currentMonthlyYears.size === 0 ? year === defaultYear : currentMonthlyYears.has(year);
+        mesecniFilterLetoSelect.appendChild(option);
+      });
+
+      mesecniFilterStrankaSelect.innerHTML = "";
+      customers.forEach((customer) => {
+        const option = document.createElement("option");
+        option.value = customer;
+        option.textContent = formatCustomerDisplayName(customer);
+        option.selected = currentMonthlyCustomers.has(customer);
+        mesecniFilterStrankaSelect.appendChild(option);
+      });
+
+      Array.from(mesecniFilterMesecSelect.options).forEach((option) => {
+        option.selected = currentMonthlyMonths.size === 0 ? option.value === defaultMonth : currentMonthlyMonths.has(option.value);
+      });
+
+      renderMonthlyFilterMonthMenu();
+      renderMonthlyFilterYearMenu();
+      renderMonthlyFilterCustomerMenu();
     }
 
     function renderTreningi() {
       const treningi = readTreningi();
       seznamTreningov.innerHTML = "";
       renderTreningFilterOptions(treningi);
+      renderWeeklyCalendar();
 
-      const selectedMeseci = getSelectedTrainingFilterMonths();
-      const selectedLeta = getSelectedTrainingFilterYears();
-      const selectedStranke = getSelectedTrainingFilterCustomers();
-      const selectedKraj = filterTreningKrajSelect.value;
-      const filteredTreningi = treningi.filter((trening) => {
-        const datum = trening.datum || "";
-        const matchesMesec = selectedMeseci.length === 0 || selectedMeseci.includes(datum.slice(5, 7));
-        const matchesLeto = selectedLeta.length === 0 || selectedLeta.includes(datum.slice(0, 4));
-        const matchesStranka = selectedStranke.length === 0 || selectedStranke.includes(trening.imeStranke);
-        const matchesKraj = !selectedKraj || trening.kraj === selectedKraj;
-        const matchesDatum = selectedTrainingDates.size === 0 || selectedTrainingDates.has(datum);
-        return matchesMesec && matchesLeto && matchesStranka && matchesKraj && matchesDatum;
-      });
+      const filteredTreningi = getFilteredTreningi(treningi);
       const totalCena = filteredTreningi.reduce((sum, trening) => sum + (Number(trening.cena) || 0), 0);
 
       povzetekStevilo.textContent = `Skupaj število treningov: ${filteredTreningi.length}`;
       povzetekCena.textContent = `Skupaj cena: ${formatCurrency(totalCena)} EUR`;
+      renderMonthlyDiaryCalendar();
 
       if (filteredTreningi.length === 0) {
         const empty = document.createElement("div");
@@ -1925,7 +3359,7 @@
         main.append(
           createCell("Stranka", trening.imeStranke),
           createCell("Kraj", trening.kraj),
-          createCell("Datum", trening.datumPrikaz),
+          createCell("Datum", trening.ura ? `${trening.datumPrikaz} ob ${trening.ura}` : trening.datumPrikaz),
           createCell("Vrsta vadbe", trening.vrstaVadbe),
           createCell("Cena", `${formatCurrency(trening.cena)} EUR`)
         );
@@ -2010,7 +3444,8 @@
               vrstaInput.value,
               treningToUpdate.kraj,
               customerOption?.dataset.racun || "da",
-              customerOption?.dataset.popust || "0"
+              customerOption?.dataset.popust || "0",
+              customerOption?.dataset.statusi
             );
 
             saveTreningi(allTreningi);
@@ -2040,6 +3475,7 @@
         seznamTreningov.appendChild(row);
       });
     }
+
 
     function getSelectedTrainingCustomers() {
       return Array.from(imeStrankeSelect.selectedOptions).filter((option) => option.value);
@@ -2071,13 +3507,221 @@
         });
 
         const text = document.createElement("span");
-        text.textContent = option.value;
+        text.textContent = formatCustomerDisplayName(option.value);
 
         row.append(checkbox, text);
         imeStrankeMenu.appendChild(row);
       });
 
       updateTrainingCustomerSummary();
+    }
+
+    function getSelectedWeeklyCustomers() {
+      return Array.from(tedenskiStrankeSelect.selectedOptions).filter((option) => option.value);
+    }
+
+    function updateWeeklyCustomerSummary() {
+      const selected = getSelectedWeeklyCustomers().map((option) => option.value);
+      tedenskiStrankePovzetek.textContent = selected.length === 0
+        ? "Izberi stranko"
+        : selected.length === 1
+          ? selected[0]
+          : `${selected.length} izbranih strank`;
+    }
+
+    function setWeeklySelectedCustomers(customerNames) {
+      const selectedNames = new Set(customerNames);
+      Array.from(tedenskiStrankeSelect.options).forEach((option) => {
+        option.selected = selectedNames.has(option.value);
+      });
+      renderWeeklyCustomerMenu();
+    }
+
+    function renderWeeklyCustomerMenu() {
+      tedenskiStrankeMenu.innerHTML = "";
+
+      Array.from(tedenskiStrankeSelect.options).forEach((option) => {
+        const row = document.createElement("label");
+        row.className = "multiselect-option";
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = option.selected;
+        checkbox.addEventListener("change", () => {
+          option.selected = checkbox.checked;
+          updateWeeklyCustomerSummary();
+        });
+
+        const text = document.createElement("span");
+        text.textContent = formatCustomerDisplayName(option.value);
+
+        row.append(checkbox, text);
+        tedenskiStrankeMenu.appendChild(row);
+      });
+
+      updateWeeklyCustomerSummary();
+    }
+
+    function resetWeeklyEditor() {
+      selectedWeeklyTrainingId = "";
+      selectedWeeklyTrainingIds = [];
+      tedenskiEditorTitle.textContent = "Dodaj termin";
+      tedenskiShraniButton.textContent = "Shrani termin";
+      tedenskiIzbrisiButton.classList.add("hidden");
+      tedenskiVrstaVadbeSelect.value = "";
+      tedenskiTrajanjeSelect.value = "60";
+      tedenskiPonavljanjeInput.checked = false;
+      setWeeklySelectedCustomers([]);
+      updateWeeklyTimeOptions(selectedWeeklySlot?.uraBlok ? getQuarterHourOptionsForHour(selectedWeeklySlot.uraBlok)[0] || "" : "");
+      tedenskiStatus.textContent = "";
+    }
+
+    function loadWeeklyTrainingForEdit(trainingGroup) {
+      const firstTraining = trainingGroup.trainings[0];
+      selectedWeeklyTrainingId = firstTraining?.id || "";
+      selectedWeeklyTrainingIds = trainingGroup.trainings.map((item) => item.id);
+      selectedWeeklySlot = {
+        datum: firstTraining?.datum || "",
+        uraBlok: (firstTraining?.ura || "00:00").slice(0, 2)
+      };
+      tedenskiEditorTitle.textContent = "Uredi termin";
+      tedenskiShraniButton.textContent = "Shrani spremembe";
+      tedenskiIzbrisiButton.classList.remove("hidden");
+      tedenskiTermin.textContent = `Termin: ${formatTrainingDisplayDate(firstTraining?.datum || "")} ob ${firstTraining?.ura || ""}`;
+      tedenskiVrstaVadbeSelect.value = firstTraining?.vrstaVadbe || "";
+      tedenskiTrajanjeSelect.value = String(firstTraining?.trajanje || 60);
+      tedenskiPonavljanjeInput.checked = Boolean(firstTraining?.recurring);
+      updateWeeklyTimeOptions(firstTraining?.ura || "");
+      setWeeklySelectedCustomers(trainingGroup.trainings.map((item) => item.imeStranke).filter(Boolean));
+      tedenskiStatus.textContent = "";
+      renderWeeklyCalendar();
+    }
+
+    function selectWeeklySlot(isoDate, uraBlok) {
+      selectedWeeklySlot = { datum: isoDate, uraBlok };
+      selectedWeeklyTrainingId = "";
+      selectedWeeklyTrainingIds = [];
+      const date = createDateFromIso(isoDate);
+      tedenskiEditorTitle.textContent = "Dodaj termin";
+      tedenskiShraniButton.textContent = "Shrani termin";
+      tedenskiIzbrisiButton.classList.add("hidden");
+      tedenskiTermin.textContent = `Termin: ${weekdayFormatter.format(date)} ${formatTrainingDisplayDate(isoDate)} med ${uraBlok}:00 in ${uraBlok}:59`;
+      tedenskiStatus.textContent = "";
+      tedenskiVrstaVadbeSelect.value = "";
+      tedenskiTrajanjeSelect.value = "60";
+      tedenskiPonavljanjeInput.checked = false;
+      setWeeklySelectedCustomers([]);
+      updateWeeklyTimeOptions(getQuarterHourOptionsForHour(uraBlok)[0] || "");
+      renderWeeklyCalendar();
+    }
+
+    function renderWeeklyCalendar() {
+      const weekDates = getWeekDates(currentWeekStart);
+      const weekStart = weekDates[0];
+      const weekEnd = weekDates[6];
+      const weekdayShort = ["PON", "TOR", "SRE", "ČET", "PET", "SOB", "NED"];
+      const timeSlots = getWeeklyHourBlocks();
+      const groupedTrainings = new Map();
+      const startMinutes = 5 * 60;
+      const hourHeight = 72;
+
+      readTreningi().forEach((trening) => {
+        if (!trening.datum || !trening.ura) {
+          return;
+        }
+
+        const key = `${trening.datum}|${trening.ura}|${Number(trening.trajanje) || 60}`;
+        if (!groupedTrainings.has(key)) {
+          groupedTrainings.set(key, {
+            datum: trening.datum,
+            ura: trening.ura,
+            trajanje: Number(trening.trajanje) || 60,
+            trainings: []
+          });
+        }
+        groupedTrainings.get(key).trainings.push(trening);
+      });
+
+      tedenskiNaslov.textContent = `${weekRangeFormatter.format(weekStart)} - ${weekRangeFormatter.format(weekEnd)}`;
+      tedenskiGrid.innerHTML = "";
+
+      const corner = document.createElement("div");
+      corner.className = "week-calendar-head";
+      corner.textContent = "Ura";
+      tedenskiGrid.appendChild(corner);
+
+      weekDates.forEach((date, index) => {
+        const head = document.createElement("div");
+        head.className = "week-calendar-head";
+        head.innerHTML = `${weekdayShort[index]}<span>${weekRangeFormatter.format(date)}</span>`;
+        tedenskiGrid.appendChild(head);
+      });
+
+      const hoursColumn = document.createElement("div");
+      hoursColumn.className = "week-calendar-hours";
+      timeSlots.forEach((ura) => {
+        const timeCell = document.createElement("div");
+        timeCell.className = "week-calendar-time";
+        timeCell.textContent = `${ura}:00`;
+        hoursColumn.appendChild(timeCell);
+      });
+      tedenskiGrid.appendChild(hoursColumn);
+
+      weekDates.forEach((date) => {
+        const isoDate = formatDateIso(date);
+        const dayColumn = document.createElement("div");
+        dayColumn.className = "week-calendar-day";
+
+        timeSlots.forEach((blockHour) => {
+          const slot = document.createElement("div");
+          slot.className = "week-calendar-slot";
+          slot.classList.toggle("active", selectedWeeklySlot?.datum === isoDate && selectedWeeklySlot?.uraBlok === blockHour);
+          slot.addEventListener("click", () => selectWeeklySlot(isoDate, blockHour));
+
+          const addButton = document.createElement("button");
+          addButton.type = "button";
+          addButton.className = "week-calendar-slot-add";
+          addButton.textContent = "+";
+          addButton.addEventListener("click", (event) => {
+            event.stopPropagation();
+            selectWeeklySlot(isoDate, blockHour);
+          });
+          slot.appendChild(addButton);
+
+          dayColumn.appendChild(slot);
+        });
+
+        [...groupedTrainings.values()]
+          .filter((group) => group.datum === isoDate)
+          .sort((a, b) => (a.ura || "").localeCompare(b.ura || ""))
+          .forEach((group) => {
+            const entry = document.createElement("div");
+            entry.className = "week-calendar-entry";
+            entry.addEventListener("click", (event) => {
+              event.stopPropagation();
+              loadWeeklyTrainingForEdit(group);
+            });
+
+            const entryColor = getEntryColor(`${group.trainings.map((item) => item.imeStranke).join("|")}|${group.trainings[0]?.vrstaVadbe || ""}`);
+            entry.style.background = entryColor.background;
+            entry.style.borderColor = entryColor.border;
+
+            const top = ((timeToMinutes(group.ura) - startMinutes) / 60) * hourHeight;
+            const height = (group.trajanje / 60) * hourHeight;
+            entry.style.top = `${top}px`;
+            entry.style.height = `${Math.max(height, 28)}px`;
+
+            const customer = document.createElement("strong");
+            customer.textContent = group.trainings
+              .map((item) => splitFullName(item.imeStranke).ime || item.imeStranke)
+              .join(", ");
+
+            entry.append(customer);
+            dayColumn.appendChild(entry);
+          });
+
+        tedenskiGrid.appendChild(dayColumn);
+      });
     }
 
     function syncTrainingKrajWithSelectedCustomer() {
@@ -2093,6 +3737,96 @@
 
     function formatDateIso(date) {
       return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+    }
+
+    function getStartOfWeek(date) {
+      const normalized = new Date(date);
+      normalized.setHours(12, 0, 0, 0);
+      const weekday = (normalized.getDay() + 6) % 7;
+      normalized.setDate(normalized.getDate() - weekday);
+      return normalized;
+    }
+
+    function getWeeklyHourBlocks() {
+      return Array.from({ length: 17 }, (_, index) => String(index + 5).padStart(2, "0"));
+    }
+
+    function createDateFromIso(isoDate) {
+      const [year, month, day] = isoDate.split("-").map(Number);
+      return new Date(year, (month || 1) - 1, day || 1, 12, 0, 0, 0);
+    }
+
+    function getWeekDates(startDate) {
+      return Array.from({ length: 7 }, (_, index) => {
+        const date = new Date(startDate);
+        date.setDate(startDate.getDate() + index);
+        return date;
+      });
+    }
+
+    function getQuarterHourOptionsForHour(hourString) {
+      const hour = Number(hourString);
+      return [0, 15, 30, 45]
+        .filter((minute) => hour !== 5 || minute >= 0)
+        .map((minute) => `${hourString}:${String(minute).padStart(2, "0")}`);
+    }
+
+    function populateWeeklyDurationOptions() {
+      tedenskiTrajanjeSelect.innerHTML = "";
+      for (let minutes = 15; minutes <= 180; minutes += 15) {
+        const option = document.createElement("option");
+        option.value = String(minutes);
+        option.textContent = minutes % 60 === 0
+          ? `${minutes / 60} h`
+          : `${Math.floor(minutes / 60)} h ${minutes % 60} min`;
+        if (minutes < 60) {
+          option.textContent = `${minutes} min`;
+        }
+        option.selected = minutes === 60;
+        tedenskiTrajanjeSelect.appendChild(option);
+      }
+    }
+
+    function updateWeeklyTimeOptions(selectedTime = "") {
+      tedenskiUraSelect.innerHTML = "";
+
+      const placeholder = document.createElement("option");
+      placeholder.value = "";
+      placeholder.textContent = selectedWeeklySlot ? "Izberi uro" : "Najprej izberi termin";
+      tedenskiUraSelect.appendChild(placeholder);
+
+      if (!selectedWeeklySlot?.uraBlok) {
+        tedenskiUraSelect.value = "";
+        return;
+      }
+
+      getQuarterHourOptionsForHour(selectedWeeklySlot.uraBlok).forEach((timeValue) => {
+        const option = document.createElement("option");
+        option.value = timeValue;
+        option.textContent = timeValue;
+        option.selected = timeValue === selectedTime;
+        tedenskiUraSelect.appendChild(option);
+      });
+
+      tedenskiUraSelect.value = selectedTime || "";
+    }
+
+    function getEntryColor(entryKey) {
+      let hash = 0;
+      for (const char of entryKey) {
+        hash = ((hash << 5) - hash) + char.charCodeAt(0);
+        hash |= 0;
+      }
+      const hue = Math.abs(hash) % 360;
+      return {
+        background: `hsl(${hue} 70% 92%)`,
+        border: `hsl(${hue} 55% 70%)`
+      };
+    }
+
+    function timeToMinutes(timeValue) {
+      const [hours, minutes] = String(timeValue || "00:00").split(":").map(Number);
+      return (hours || 0) * 60 + (minutes || 0);
     }
 
     function renderTrainingCalendar() {
@@ -2143,87 +3877,197 @@
       koledarIzbor.textContent = `Izbrani datumi: ${selectedTrainingDates.size}`;
     }
 
+    function renderMonthlyDiaryCalendar(filteredTreningi = getFilteredMonthlyTreningi()) {
+      renderMonthlyFilterSummary();
+      const year = monthlyDiaryViewDate.getFullYear();
+      const month = monthlyDiaryViewDate.getMonth();
+      const firstDay = new Date(year, month, 1);
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const startWeekday = (firstDay.getDay() + 6) % 7;
+      const weekdays = ["Po", "To", "Sr", "Ce", "Pe", "So", "Ne"];
+      const trainingsByDate = new Map();
+
+      filteredTreningi.forEach((trening) => {
+        if (!trening.datum) {
+          return;
+        }
+
+        if (trening.datum.slice(0, 7) !== `${year}-${String(month + 1).padStart(2, "0")}`) {
+          return;
+        }
+
+        const list = trainingsByDate.get(trening.datum) || [];
+        list.push(trening);
+        trainingsByDate.set(trening.datum, list);
+      });
+
+      mesecniNaslov.textContent = monthFormatter.format(firstDay);
+      mesecniGrid.innerHTML = "";
+
+      weekdays.forEach((weekday) => {
+        const cell = document.createElement("div");
+        cell.className = "month-diary-weekday";
+        cell.textContent = weekday;
+        mesecniGrid.appendChild(cell);
+      });
+
+      for (let i = 0; i < startWeekday; i += 1) {
+        const empty = document.createElement("div");
+        empty.className = "month-diary-day empty";
+        mesecniGrid.appendChild(empty);
+      }
+
+      for (let day = 1; day <= daysInMonth; day += 1) {
+        const date = new Date(year, month, day);
+        const isoDate = formatDateIso(date);
+        const dayCard = document.createElement("article");
+        dayCard.className = "month-diary-day";
+        dayCard.classList.toggle("selected", selectedTrainingDates.has(isoDate));
+
+        const head = document.createElement("div");
+        head.className = "month-diary-day-head";
+
+        const dayNumber = document.createElement("span");
+        dayNumber.textContent = String(day);
+        head.appendChild(dayNumber);
+
+        const list = document.createElement("div");
+        list.className = "month-diary-day-list";
+
+        const entries = (trainingsByDate.get(isoDate) || []).sort((a, b) => {
+          const aTime = a.ura || "99:99";
+          const bTime = b.ura || "99:99";
+          return aTime.localeCompare(bTime) || a.imeStranke.localeCompare(b.imeStranke);
+        });
+
+        if (entries.length === 0) {
+          const emptyRow = document.createElement("div");
+          emptyRow.className = "month-diary-entry";
+          emptyRow.textContent = "";
+          emptyRow.style.visibility = "hidden";
+          list.appendChild(emptyRow);
+        } else {
+          const groupedEntries = new Map();
+
+          entries.forEach((trening) => {
+            const key = trening.ura || "__brez_ure__";
+            const group = groupedEntries.get(key) || [];
+            group.push(trening);
+            groupedEntries.set(key, group);
+          });
+
+          Array.from(groupedEntries.entries()).forEach(([ura, trainingsAtTime]) => {
+            const entry = document.createElement("div");
+            entry.className = "month-diary-entry";
+
+            if (ura !== "__brez_ure__") {
+              const time = document.createElement("span");
+              time.className = "month-diary-entry-time";
+              time.textContent = ura;
+              entry.appendChild(time);
+            }
+
+            const name = document.createElement("span");
+            name.textContent = trainingsAtTime.map((trening) => trening.imeStranke).join(", ");
+            entry.appendChild(name);
+            list.appendChild(entry);
+          });
+        }
+
+        dayCard.append(head, list);
+        mesecniGrid.appendChild(dayCard);
+      }
+    }
+
     function readCustomersFromSelect() {
       return Array.from(imeStrankeSelect.options).map((option) => ({
         name: option.value,
         email: option.dataset.email || "",
+        telefon: option.dataset.telefon || "",
         kraj: option.dataset.kraj || "",
         racun: option.dataset.racun || "",
         popust: option.dataset.popust || "0",
+        statusi: normalizeCustomerStatuses(option.dataset.statusi),
         datoteke: option.dataset.datoteke ? JSON.parse(option.dataset.datoteke) : [],
         komentar: option.dataset.komentar || ""
       }));
     }
 
     function saveCustomersToStorage() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(readCustomersFromSelect()));
+      appState.customers = normalizeCustomers(readCustomersFromSelect());
+      renderCustomersToSelect(appState.customers);
+      void persistAppState();
     }
 
     function renderCustomersToSelect(customers) {
       const currentValues = new Set(getSelectedTrainingCustomers().map((option) => option.value));
+      const currentWeeklyValues = new Set(getSelectedWeeklyCustomers().map((option) => option.value));
+      const sortedCustomers = customers
+        .slice()
+        .sort((a, b) => compareCustomerNamesBySurname(a.name || "", b.name || ""));
       imeStrankeSelect.innerHTML = "";
+      tedenskiStrankeSelect.innerHTML = "";
 
-      customers.forEach((customer) => {
+      sortedCustomers.forEach((customer) => {
         const option = document.createElement("option");
         option.value = customer.name;
-        option.textContent = customer.name;
+        option.textContent = formatCustomerDisplayName(customer.name);
         option.dataset.email = customer.email || "";
-        option.dataset.kraj = customer.kraj || "";
-        option.dataset.racun = customer.racun || "";
-        option.dataset.popust = customer.popust || "0";
-        option.dataset.datoteke = JSON.stringify(Array.isArray(customer.datoteke) ? customer.datoteke : []);
-        option.dataset.komentar = customer.komentar || "";
+          option.dataset.telefon = customer.telefon || "";
+          option.dataset.kraj = customer.kraj || "";
+          option.dataset.racun = customer.racun || "";
+          option.dataset.popust = customer.popust || "0";
+          option.dataset.statusi = JSON.stringify(normalizeCustomerStatuses(customer.statusi));
+          option.dataset.datoteke = JSON.stringify(Array.isArray(customer.datoteke) ? customer.datoteke : []);
+          option.dataset.komentar = customer.komentar || "";
         option.selected = currentValues.has(customer.name);
         imeStrankeSelect.appendChild(option);
+
+        const weeklyOption = option.cloneNode(true);
+        weeklyOption.selected = currentWeeklyValues.has(customer.name);
+        tedenskiStrankeSelect.appendChild(weeklyOption);
       });
 
+      renderCustomerReviewFilterOptions();
       renderTrainingCustomerMenu();
+      renderWeeklyCustomerMenu();
       syncTrainingKrajWithSelectedCustomer();
     }
 
     function loadCustomersFromStorage() {
-      const saved = localStorage.getItem(STORAGE_KEY);
+      renderCustomersToSelect(appState.customers);
+    }
 
-      if (!saved) {
-        renderCustomersToSelect(defaultCustomers);
-        saveCustomersToStorage();
-        return;
-      }
+    function renderCustomerReviewFilterOptions() {
+      const currentValue = filterStrankaPregledSelect.value;
+      const selectedKrajFilter = filterKrajStrankSelect.value;
+      filterStrankaPregledSelect.innerHTML = "";
 
-      try {
-        const customers = JSON.parse(saved);
+      const allOption = document.createElement("option");
+      allOption.value = "";
+      allOption.textContent = "Vse stranke";
+      filterStrankaPregledSelect.appendChild(allOption);
 
-        if (!Array.isArray(customers) || customers.length === 0) {
-          return;
-        }
+      Array.from(imeStrankeSelect.options)
+        .filter((option) => !selectedKrajFilter || option.dataset.kraj === selectedKrajFilter)
+        .sort((a, b) => compareCustomerNamesBySurname(a.value, b.value))
+        .forEach((option) => {
+          const nextOption = document.createElement("option");
+          nextOption.value = option.value;
+          nextOption.textContent = formatCustomerDisplayName(option.value);
+          nextOption.selected = option.value === currentValue;
+          filterStrankaPregledSelect.appendChild(nextOption);
+        });
 
-        const normalizedCustomers = customers
-          .filter((customer) => customer && typeof customer.name === "string" && customer.name.trim())
-          .map((customer) => ({
-            name: customer.name.trim(),
-            email: typeof customer.email === "string" ? customer.email : "",
-            kraj: typeof customer.kraj === "string" && customer.kraj ? customer.kraj : "",
-            racun: typeof customer.racun === "string" && customer.racun ? customer.racun : "",
-            popust: customer?.popust != null ? String(customer.popust) : "0",
-            datoteke: Array.isArray(customer.datoteke)
-              ? customer.datoteke
-                  .filter((item) => item && typeof item.name === "string" && typeof item.url === "string")
-                  .map((item) => ({ name: item.name, url: item.url }))
-              : [],
-            komentar: typeof customer.komentar === "string" ? customer.komentar : ""
-          }));
-
-        if (normalizedCustomers.length > 0) {
-          renderCustomersToSelect(normalizedCustomers);
-        }
-      } catch (error) {
-        console.error("Napaka pri branju shranjenih strank:", error);
+      if (currentValue && !Array.from(filterStrankaPregledSelect.options).some((option) => option.value === currentValue)) {
+        filterStrankaPregledSelect.value = "";
       }
     }
 
     function renderCustomerList() {
       seznamStrank.innerHTML = "";
       const selectedKrajFilter = filterKrajStrankSelect.value;
+      const selectedCustomerFilter = filterStrankaPregledSelect.value;
 
       const sortedOptions = Array.from(imeStrankeSelect.options).sort((a, b) => {
         const aDetails = splitFullName(a.value);
@@ -2241,6 +4085,7 @@
 
       sortedOptions
         .filter((option) => !selectedKrajFilter || option.dataset.kraj === selectedKrajFilter)
+        .filter((option) => !selectedCustomerFilter || option.value === selectedCustomerFilter)
         .forEach((option) => {
         const details = splitFullName(option.value);
         const card = document.createElement("article");
@@ -2255,6 +4100,9 @@
         const priimek = document.createElement("p");
         priimek.textContent = `Priimek: ${details.priimek || "-"}`;
 
+        const telefon = document.createElement("p");
+        telefon.textContent = `Telefonska številka: ${option.dataset.telefon || "-"}`;
+
         const email = document.createElement("p");
         email.textContent = `Email: ${option.dataset.email || "-"}`;
 
@@ -2266,6 +4114,9 @@
 
         const popust = document.createElement("p");
         popust.textContent = `Popust: ${option.dataset.popust || "0"} %`;
+
+        const statusi = document.createElement("p");
+        statusi.textContent = `Status: ${formatStatuses(option.dataset.statusi)}`;
 
         const datoteke = document.createElement("p");
         datoteke.className = "customer-files-row";
@@ -2328,6 +4179,10 @@
           emailInput.type = "email";
           emailInput.value = option.dataset.email || "";
 
+          const telefonInput = document.createElement("input");
+          telefonInput.type = "text";
+          telefonInput.value = option.dataset.telefon || "";
+
           const krajInput = document.createElement("select");
           ["Ajdovščina", "Idrija"].forEach((value) => {
             const krajOption = document.createElement("option");
@@ -2352,6 +4207,33 @@
           popustInput.max = "100";
           popustInput.step = "1";
           popustInput.value = option.dataset.popust || "0";
+
+          const statusField = document.createElement("fieldset");
+          statusField.className = "checkbox-group-field";
+
+          const statusLegend = document.createElement("legend");
+          statusLegend.className = "checkbox-group-title";
+          statusLegend.textContent = "Status";
+
+          const statusOptions = document.createElement("div");
+          statusOptions.className = "checkbox-group-options";
+          const currentStatuses = normalizeCustomerStatuses(option.dataset.statusi);
+
+          const createStatusCheckbox = (value) => {
+            const label = document.createElement("label");
+            const input = document.createElement("input");
+            input.type = "checkbox";
+            input.value = value;
+            input.checked = currentStatuses.includes(value);
+            label.append(input, document.createTextNode(` ${value}`));
+            statusOptions.appendChild(label);
+            return input;
+          };
+
+          const statusStudentInput = createStatusCheckbox("študent");
+          const statusDijakInput = createStatusCheckbox("dijak");
+          const statusUpokojenecInput = createStatusCheckbox("upokojenec");
+          statusField.append(statusLegend, statusOptions);
 
           const komentarInput = document.createElement("textarea");
           komentarInput.rows = 4;
@@ -2479,9 +4361,11 @@
             option.value = fullName;
             option.textContent = fullName;
             option.dataset.email = emailInput.value.trim();
+            option.dataset.telefon = telefonInput.value.trim();
             option.dataset.kraj = krajInput.value;
             option.dataset.racun = racunInput.value;
             option.dataset.popust = String(Math.max(0, Math.min(100, Number(popustInput.value) || 0)));
+            option.dataset.statusi = JSON.stringify(getSelectedStatusesFromInputs([statusStudentInput, statusDijakInput, statusUpokojenecInput]));
             option.dataset.komentar = komentarInput.value.trim();
             option.dataset.datoteke = JSON.stringify([...currentFiles, ...uploadedFiles]);
 
@@ -2494,7 +4378,8 @@
                   trening.vrstaVadbe,
                   krajInput.value,
                   racunInput.value,
-                  popustInput.value
+                  popustInput.value,
+                  getSelectedStatusesFromInputs([statusStudentInput, statusDijakInput, statusUpokojenecInput])
                 );
               }
             });
@@ -2516,10 +4401,12 @@
           editForm.append(
             makeField("Ime", imeInput),
             makeField("Priimek", priimekInput),
+            makeField("Telefonska številka", telefonInput),
             makeField("Email", emailInput),
             makeField("Kraj", krajInput),
             makeField("Račun", racunInput),
             makeField("Popust (%)", popustInput),
+            statusField,
             makeField("Komentar", komentarInput),
             makeField("Naloži datoteke", datotekeInput),
             filesList,
@@ -2546,7 +4433,7 @@
         });
 
         actions.append(editButton, deleteButton);
-        card.append(actions, title, ime, priimek, email, kraj, racun, popust, datoteke, komentar);
+        card.append(actions, title, ime, priimek, telefon, email, kraj, racun, popust, statusi, datoteke, komentar);
         seznamStrank.appendChild(card);
       });
 
@@ -2570,7 +4457,7 @@
       Array.from(imeStrankeSelect.options).forEach((option) => {
         const editOption = document.createElement("option");
         editOption.value = option.value;
-        editOption.textContent = option.value;
+        editOption.textContent = formatCustomerDisplayName(option.value);
         urediStrankoIzbor.appendChild(editOption);
       });
 
@@ -2588,7 +4475,7 @@
       Array.from(imeStrankeSelect.options).forEach((option) => {
         const deleteOption = document.createElement("option");
         deleteOption.value = option.value;
-        deleteOption.textContent = option.value;
+        deleteOption.textContent = formatCustomerDisplayName(option.value);
         izbrisiStrankoIzbor.appendChild(deleteOption);
       });
 
@@ -2605,9 +4492,11 @@
         urediImeInput.value = "";
         urediPriimekInput.value = "";
         urediEmailInput.value = "";
+        urediTelefonInput.value = "";
         urediKrajInput.value = "Ajdovščina";
         urediRacunInput.value = "da";
         urediPopustInput.value = "0";
+        setSelectedStatusesToInputs([urediStatusStudentInput, urediStatusDijakInput, urediStatusUpokojenecInput], []);
         currentEditFiles = [];
         removedEditFiles = [];
         renderEditFiles();
@@ -2622,9 +4511,11 @@
       urediImeInput.value = details.ime;
       urediPriimekInput.value = details.priimek;
       urediEmailInput.value = selectedOption.dataset.email || "";
+      urediTelefonInput.value = selectedOption.dataset.telefon || "";
       urediKrajInput.value = selectedOption.dataset.kraj || "Ajdovščina";
       urediRacunInput.value = selectedOption.dataset.racun || "da";
       urediPopustInput.value = selectedOption.dataset.popust || "0";
+      setSelectedStatusesToInputs([urediStatusStudentInput, urediStatusDijakInput, urediStatusUpokojenecInput], selectedOption.dataset.statusi);
       currentEditFiles = selectedOption.dataset.datoteke ? JSON.parse(selectedOption.dataset.datoteke) : [];
       removedEditFiles = [];
       renderEditFiles();
@@ -2634,28 +4525,28 @@
 
     Array.from(imeStrankeSelect.options).forEach((option) => {
       option.dataset.email = option.dataset.email || "";
+      option.dataset.telefon = option.dataset.telefon || "";
       option.dataset.kraj = option.dataset.kraj || "";
       option.dataset.racun = option.dataset.racun || "";
       option.dataset.popust = option.dataset.popust || "0";
+      option.dataset.statusi = option.dataset.statusi || "[]";
       option.dataset.datoteke = option.dataset.datoteke || "[]";
       option.dataset.komentar = option.dataset.komentar || "";
     });
 
-    if (isStaticDeployment) {
+    function updateUploadAvailability() {
       const uploadLabels = [
         novDatotekeInput.closest("label"),
         urediDatotekeInput.closest("label")
       ].filter(Boolean);
 
       uploadLabels.forEach((label) => {
-        label.classList.add("hidden");
+        label.classList.toggle("hidden", isStaticDeployment);
       });
 
-      statusDatotekeNove.textContent = "Na javnem linku nalaganje datotek ni na voljo.";
-      statusDatotekeUredi.textContent = "Na javnem linku nalaganje datotek ni na voljo.";
+      statusDatotekeNove.textContent = isStaticDeployment ? "Na javnem linku nalaganje datotek ni na voljo." : "";
+      statusDatotekeUredi.textContent = isStaticDeployment ? "Na javnem linku nalaganje datotek ni na voljo." : "";
     }
-
-    loadCustomersFromStorage();
 
     for (let offset = 0; offset < 30; offset += 1) {
       const date = new Date();
@@ -2707,9 +4598,11 @@
       option.value = fullName;
       option.textContent = fullName;
       option.dataset.email = novEmailInput.value.trim();
+      option.dataset.telefon = novTelefonInput.value.trim();
       option.dataset.kraj = novKrajInput.value;
       option.dataset.racun = novRacunInput.value;
       option.dataset.popust = String(Math.max(0, Math.min(100, Number(novPopustInput.value) || 0)));
+      option.dataset.statusi = JSON.stringify(getSelectedStatusesFromInputs([novStatusStudentInput, novStatusDijakInput, novStatusUpokojenecInput]));
       option.dataset.datoteke = JSON.stringify(uploadedFiles);
       option.dataset.komentar = novKomentarInput.value.trim();
       imeStrankeSelect.appendChild(option);
@@ -2719,9 +4612,11 @@
       novoImeInput.value = "";
       novPriimekInput.value = "";
       novEmailInput.value = "";
+      novTelefonInput.value = "";
       novKrajInput.value = "Ajdovščina";
       novRacunInput.value = "da";
       novPopustInput.value = "0";
+      setSelectedStatusesToInputs([novStatusStudentInput, novStatusDijakInput, novStatusUpokojenecInput], []);
       novKomentarInput.value = "";
       novDatotekeInput.value = "";
       setFileStatus(statusDatotekeNove, []);
@@ -2736,7 +4631,6 @@
     shraniTreningButton.addEventListener("click", () => {
       const selectedCustomers = getSelectedTrainingCustomers();
       const datumValue = datumSelect.value;
-      const datumPrikaz = datumSelect.options[datumSelect.selectedIndex]?.textContent || datumValue;
       const vrstaVadbe = vrstaVadbeSelect.value;
 
       if (selectedCustomers.length === 0) {
@@ -2752,8 +4646,8 @@
       }
 
       const invalidCustomer = selectedCustomers.find((option) => {
-        const kraj = option.dataset.kraj;
-        return kraj !== "Ajdovščina" && kraj !== "Idrija";
+        const kraj = getCustomerDataByName(option.value)?.kraj || option.dataset.kraj || "";
+        return !kraj;
       });
 
       if (invalidCustomer) {
@@ -2761,30 +4655,7 @@
         return;
       }
 
-      const treningi = readTreningi();
-      selectedCustomers
-        .slice()
-        .reverse()
-        .forEach((option) => {
-          const kraj = option.dataset.kraj;
-          const cena = getCurrentTrainingPrice(
-            vrstaVadbe,
-            kraj,
-            option.dataset.racun || "da",
-            option.dataset.popust || "0"
-          );
-          treningi.unshift({
-            id: createTrainingId(),
-            imeStranke: option.value,
-            datum: datumValue,
-            datumPrikaz,
-            kraj,
-            vrstaVadbe,
-            cena
-          });
-        });
-
-      saveTreningi(treningi);
+      addTrainingsForCustomers(selectedCustomers, datumValue, vrstaVadbe);
       renderTreningi();
       statusTreninga.textContent = selectedCustomers.length === 1
         ? `Trening za osebo "${selectedCustomers[0].value}" je shranjen.`
@@ -2870,11 +4741,28 @@
       optionToEdit.value = fullName;
       optionToEdit.textContent = fullName;
       optionToEdit.dataset.email = urediEmailInput.value.trim();
+      optionToEdit.dataset.telefon = urediTelefonInput.value.trim();
       optionToEdit.dataset.kraj = urediKrajInput.value;
       optionToEdit.dataset.racun = urediRacunInput.value;
       optionToEdit.dataset.popust = String(Math.max(0, Math.min(100, Number(urediPopustInput.value) || 0)));
+      optionToEdit.dataset.statusi = JSON.stringify(getSelectedStatusesFromInputs([urediStatusStudentInput, urediStatusDijakInput, urediStatusUpokojenecInput]));
       optionToEdit.dataset.datoteke = JSON.stringify(mergedFiles);
       optionToEdit.dataset.komentar = urediKomentarInput.value.trim();
+      const izbraniStatusi = getSelectedStatusesFromInputs([urediStatusStudentInput, urediStatusDijakInput, urediStatusUpokojenecInput]);
+      const allTreningi = readTreningi();
+      allTreningi.forEach((trening) => {
+        if (trening.imeStranke === originalValue) {
+          trening.imeStranke = fullName;
+          trening.kraj = urediKrajInput.value;
+          trening.cena = getCurrentTrainingPrice(
+            trening.vrstaVadbe,
+            urediKrajInput.value,
+            urediRacunInput.value,
+            urediPopustInput.value,
+            izbraniStatusi
+          );
+        }
+      });
       Array.from(imeStrankeSelect.options).forEach((option) => {
         option.selected = option.value === fullName;
       });
@@ -2887,6 +4775,8 @@
       urediDatotekeInput.value = "";
       renderCustomerList();
       saveCustomersToStorage();
+      saveTreningi(allTreningi);
+      renderTreningi();
       statusUrejanja.textContent = `Stranka "${fullName}" je posodobljena.`;
     });
 
@@ -2965,26 +4855,70 @@
     });
 
     filterKrajStrankSelect.addEventListener("change", () => {
+      renderCustomerReviewFilterOptions();
+      renderCustomerList();
+    });
+
+    filterStrankaPregledSelect.addEventListener("change", () => {
       renderCustomerList();
     });
 
     filterTreningMesecSelect.addEventListener("change", () => {
       renderTrainingFilterMonthMenu();
+      resetMonthlyFilters();
       renderTreningi();
     });
 
     filterTreningLetoSelect.addEventListener("change", () => {
       renderTrainingFilterYearMenu();
+      resetMonthlyFilters();
       renderTreningi();
     });
 
     filterTreningStrankaSelect.addEventListener("change", () => {
       renderTrainingFilterCustomerMenu();
+      resetMonthlyFilters();
       renderTreningi();
     });
 
     filterTreningKrajSelect.addEventListener("change", () => {
+      resetMonthlyFilters();
       renderTreningi();
+    });
+
+    mesecniFilterMesecToggle.addEventListener("click", () => {
+      const isOpen = mesecniFilterMesecMenu.classList.toggle("open");
+      mesecniFilterMesecToggle.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    mesecniFilterLetoToggle.addEventListener("click", () => {
+      const isOpen = mesecniFilterLetoMenu.classList.toggle("open");
+      mesecniFilterLetoToggle.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    mesecniFilterStrankaToggle.addEventListener("click", () => {
+      const isOpen = mesecniFilterStrankaMenu.classList.toggle("open");
+      mesecniFilterStrankaToggle.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    mesecniFilterMesecSelect.addEventListener("change", () => {
+      resetDiaryFilters();
+      renderMonthlyDiaryCalendar();
+    });
+
+    mesecniFilterLetoSelect.addEventListener("change", () => {
+      resetDiaryFilters();
+      renderMonthlyDiaryCalendar();
+    });
+
+    mesecniFilterStrankaSelect.addEventListener("change", () => {
+      resetDiaryFilters();
+      renderMonthlyDiaryCalendar();
+    });
+
+    mesecniFilterKrajSelect.addEventListener("change", () => {
+      resetDiaryFilters();
+      renderMonthlyDiaryCalendar();
     });
 
     toggleKoledarTreningovButton.addEventListener("click", () => {
@@ -2999,6 +4933,16 @@
     koledarNaslednjiButton.addEventListener("click", () => {
       calendarViewDate = new Date(calendarViewDate.getFullYear(), calendarViewDate.getMonth() + 1, 1);
       renderTrainingCalendar();
+    });
+
+    mesecniPrejsnjiButton.addEventListener("click", () => {
+      monthlyDiaryViewDate = new Date(monthlyDiaryViewDate.getFullYear(), monthlyDiaryViewDate.getMonth() - 1, 1);
+      syncMonthlyMonthYearToViewDate();
+    });
+
+    mesecniNaslednjiButton.addEventListener("click", () => {
+      monthlyDiaryViewDate = new Date(monthlyDiaryViewDate.getFullYear(), monthlyDiaryViewDate.getMonth() + 1, 1);
+      syncMonthlyMonthYearToViewDate();
     });
 
     koledarPocistiButton.addEventListener("click", () => {
@@ -3027,6 +4971,223 @@
       filterTreningStrankaToggle.setAttribute("aria-expanded", String(isOpen));
     });
 
+    tedenskiStrankeToggle.addEventListener("click", () => {
+      const isOpen = tedenskiStrankeMenu.classList.toggle("open");
+      tedenskiStrankeToggle.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    tedenskiUraSelect.addEventListener("change", () => {
+      tedenskiStatus.textContent = "";
+    });
+
+    tedenskiTrajanjeSelect.addEventListener("change", () => {
+      tedenskiStatus.textContent = "";
+    });
+
+    tedenskiPonavljanjeInput.addEventListener("change", () => {
+      tedenskiStatus.textContent = "";
+    });
+
+    tedenskiPrejsnjiButton.addEventListener("click", () => {
+      currentWeekStart.setDate(currentWeekStart.getDate() - 7);
+      currentWeekStart = getStartOfWeek(currentWeekStart);
+      renderWeeklyCalendar();
+    });
+
+    tedenskiNaslednjiButton.addEventListener("click", () => {
+      currentWeekStart.setDate(currentWeekStart.getDate() + 7);
+      currentWeekStart = getStartOfWeek(currentWeekStart);
+      renderWeeklyCalendar();
+    });
+
+    function saveWeeklySelectionChanges(applyToSeries) {
+      const allTreningi = readTreningi();
+      const selectedCustomers = getSelectedWeeklyCustomers();
+      const customerMap = new Map(selectedCustomers.map((option) => [option.value, getCustomerDataByName(option.value)]));
+      const groupTrainings = allTreningi.filter((item) => selectedWeeklyTrainingIds.includes(item.id));
+      const selectedDate = selectedWeeklySlot.datum;
+      const originalSeriesId = groupTrainings[0]?.seriesId || "";
+      const existingByName = new Map(groupTrainings.map((item) => [item.imeStranke, item]));
+      const recurring = tedenskiPonavljanjeInput.checked;
+      const shouldKeepSeries = applyToSeries && recurring;
+      const seriesId = shouldKeepSeries
+        ? (originalSeriesId || `series_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`)
+        : "";
+      const keptTrainings = allTreningi.filter((item) => {
+        if (selectedWeeklyTrainingIds.includes(item.id)) {
+          return false;
+        }
+
+        if (!applyToSeries || !originalSeriesId) {
+          return true;
+        }
+
+        return !(item.seriesId === originalSeriesId && item.datum > selectedDate);
+      });
+
+      selectedCustomers.forEach((option) => {
+        const customerData = customerMap.get(option.value);
+        const existing = existingByName.get(option.value);
+
+        if (existing) {
+          existing.datum = selectedWeeklySlot.datum;
+          existing.datumPrikaz = formatTrainingDisplayDate(selectedWeeklySlot.datum);
+          existing.ura = tedenskiUraSelect.value;
+          existing.trajanje = Number(tedenskiTrajanjeSelect.value) || 60;
+          existing.seriesId = seriesId;
+          existing.recurring = shouldKeepSeries;
+          existing.kraj = customerData?.kraj || existing.kraj || "";
+          existing.vrstaVadbe = tedenskiVrstaVadbeSelect.value;
+          existing.cena = getCurrentTrainingPrice(
+            tedenskiVrstaVadbeSelect.value,
+            customerData?.kraj || existing.kraj || "",
+            customerData?.racun || "da",
+            customerData?.popust || "0",
+            customerData?.statusi
+          );
+          keptTrainings.push(existing);
+          return;
+        }
+
+        keptTrainings.unshift(
+          ...buildTrainingsForCustomers(
+            [option],
+            selectedWeeklySlot.datum,
+            tedenskiVrstaVadbeSelect.value,
+            tedenskiUraSelect.value,
+            Number(tedenskiTrajanjeSelect.value) || 60,
+            shouldKeepSeries,
+            seriesId,
+            1
+          )
+        );
+      });
+
+      if (shouldKeepSeries) {
+        keptTrainings.unshift(
+          ...buildTrainingsForCustomers(
+            selectedCustomers,
+            selectedWeeklySlot.datum,
+            tedenskiVrstaVadbeSelect.value,
+            tedenskiUraSelect.value,
+            Number(tedenskiTrajanjeSelect.value) || 60,
+            true,
+            seriesId,
+            51,
+            1
+          )
+        );
+      }
+
+      saveTreningi(keptTrainings);
+      renderTreningi();
+      tedenskiStatus.textContent = "Termin je posodobljen.";
+      resetWeeklyEditor();
+    }
+
+    function deleteWeeklySelection(deleteSeries) {
+      const groupTrainings = getSelectedWeeklyTrainings();
+      const seriesId = groupTrainings[0]?.seriesId || "";
+      const selectedDate = selectedWeeklySlot?.datum || "";
+      const updatedTrainings = readTreningi().filter((item) => {
+        if (selectedWeeklyTrainingIds.includes(item.id)) {
+          return false;
+        }
+
+        if (!deleteSeries || !seriesId) {
+          return true;
+        }
+
+        return !(item.seriesId === seriesId && item.datum > selectedDate);
+      });
+
+      saveTreningi(updatedTrainings);
+      renderTreningi();
+      resetWeeklyEditor();
+    }
+
+    tedenskiShraniButton.addEventListener("click", () => {
+      if (!selectedWeeklySlot) {
+        tedenskiStatus.textContent = "Najprej izberi termin v koledarju.";
+        return;
+      }
+
+      const selectedCustomers = getSelectedWeeklyCustomers();
+      if (selectedCustomers.length === 0) {
+        tedenskiStatus.textContent = "Izberi vsaj eno stranko.";
+        return;
+      }
+
+      if (!tedenskiVrstaVadbeSelect.value) {
+        tedenskiStatus.textContent = "Izberi vrsto vadbe.";
+        return;
+      }
+
+      if (!tedenskiUraSelect.value) {
+        tedenskiStatus.textContent = "Izberi uro začetka.";
+        return;
+      }
+
+      const invalidCustomer = selectedCustomers.find((option) => {
+        const kraj = getCustomerDataByName(option.value)?.kraj || option.dataset.kraj || "";
+        return !kraj;
+      });
+
+      if (invalidCustomer) {
+        tedenskiStatus.textContent = `Stranka "${invalidCustomer.value}" nima doloÄŤenega kraja.`;
+        return;
+      }
+
+      if (selectedWeeklyTrainingIds.length > 0) {
+        if (isRecurringWeeklySelection()) {
+          openRecurringChoiceDialog(
+            "Ali želite urediti samo trenutni termin ali vse termine?",
+            () => saveWeeklySelectionChanges(false),
+            () => saveWeeklySelectionChanges(true)
+          );
+          return;
+        }
+
+        saveWeeklySelectionChanges(false);
+        return;
+      } else {
+        addTrainingsForCustomers(
+          selectedCustomers,
+          selectedWeeklySlot.datum,
+          tedenskiVrstaVadbeSelect.value,
+          tedenskiUraSelect.value,
+          Number(tedenskiTrajanjeSelect.value) || 60,
+          tedenskiPonavljanjeInput.checked
+        );
+      }
+      renderTreningi();
+      tedenskiStatus.textContent = selectedWeeklyTrainingIds.length > 0
+        ? "Termin je posodobljen."
+        : selectedCustomers.length === 1
+          ? `Termin za osebo "${selectedCustomers[0].value}" je shranjen.`
+          : `Termini za ${selectedCustomers.length} oseb so shranjeni.`;
+      resetWeeklyEditor();
+    });
+
+    tedenskiIzbrisiButton.addEventListener("click", () => {
+      if (selectedWeeklyTrainingIds.length === 0) {
+        return;
+      }
+
+      if (isRecurringWeeklySelection()) {
+        openRecurringChoiceDialog(
+          "Ali želite izbrisati samo trenutni termin ali vse termine?",
+          () => deleteWeeklySelection(false),
+          () => deleteWeeklySelection(true)
+        );
+        return;
+      }
+
+      openConfirmDialog("Ste prepričani, da želite izbrisati trening?", () => {
+        deleteWeeklySelection(false);
+      });
+    });
+
     document.addEventListener("click", (event) => {
       if (!event.target.closest(".multiselect")) {
         imeStrankeMenu.classList.remove("open");
@@ -3037,11 +5198,35 @@
         filterTreningLetoToggle.setAttribute("aria-expanded", "false");
         filterTreningStrankaMenu.classList.remove("open");
         filterTreningStrankaToggle.setAttribute("aria-expanded", "false");
+        tedenskiStrankeMenu.classList.remove("open");
+        tedenskiStrankeToggle.setAttribute("aria-expanded", "false");
+        mesecniFilterMesecMenu.classList.remove("open");
+        mesecniFilterMesecToggle.setAttribute("aria-expanded", "false");
+        mesecniFilterLetoMenu.classList.remove("open");
+        mesecniFilterLetoToggle.setAttribute("aria-expanded", "false");
+        mesecniFilterStrankaMenu.classList.remove("open");
+        mesecniFilterStrankaToggle.setAttribute("aria-expanded", "false");
       }
     });
 
     confirmOkButton.addEventListener("click", () => {
       const action = confirmAction;
+      closeConfirmDialog();
+      if (action) {
+        action();
+      }
+    });
+
+    confirmCurrentButton.addEventListener("click", () => {
+      const action = confirmCurrentAction;
+      closeConfirmDialog();
+      if (action) {
+        action();
+      }
+    });
+
+    confirmAllButton.addEventListener("click", () => {
+      const action = confirmAllAction;
       closeConfirmDialog();
       if (action) {
         action();
@@ -3091,22 +5276,131 @@
       statusCenik.textContent = "";
     });
 
-    renderTrainingCustomerMenu();
-    renderTrainingFilterMonthMenu();
-    renderTrainingFilterYearMenu();
-    renderTrainingFilterCustomerMenu();
-    renderEditSelect();
-    renderDeleteSelect();
-    fillEditForm(urediStrankoIzbor.value);
-    renderCustomerList();
-    renderTrainingCalendar();
-    renderTreningi();
-    const currentCenik = getStoredCenik();
-    cenikKrajPrikazSelect.value = "";
-    cenikKrajUrediSelect.value = "Ajdovščina";
-    populateCenikVrstaVadbeOptions(currentCenik, cenikKrajUrediSelect.value);
-    fillCenikForm(currentCenik);
-    renderCenik(currentCenik);
+    async function initializeApp() {
+      const session = await getSessionInfo();
+      setAuthMode("login", Boolean(session.registrationAvailable));
+      if (!session.authenticated) {
+        setAuthenticatedView(false);
+        return;
+      }
+
+      await loadAppState();
+      updateUploadAvailability();
+      normalizeMonthlyLayout();
+      populateWeeklyDurationOptions();
+      loadCustomersFromStorage();
+      renderTrainingCustomerMenu();
+      renderWeeklyCustomerMenu();
+      renderTrainingFilterMonthMenu();
+      renderTrainingFilterYearMenu();
+      renderTrainingFilterCustomerMenu();
+      renderEditSelect();
+      renderDeleteSelect();
+      fillEditForm(urediStrankoIzbor.value);
+      renderCustomerList();
+      renderTrainingCalendar();
+      renderWeeklyCalendar();
+      resetWeeklyEditor();
+      renderTreningi();
+      const currentCenik = getStoredCenik();
+      cenikKrajPrikazSelect.value = "";
+      cenikKrajUrediSelect.value = "Ajdovščina";
+      populateCenikVrstaVadbeOptions(currentCenik, cenikKrajUrediSelect.value);
+      fillCenikForm(currentCenik);
+      renderCenik(currentCenik);
+      setAuthenticatedView(true, session.username || "");
+      appInitialized = true;
+    }
+
+    loginForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      loginStatus.textContent = "";
+
+      const endpoint = authMode === "register" ? "/api/register" : "/api/login";
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          username: loginUsernameInput.value.trim(),
+          password: loginPasswordInput.value
+        })
+      });
+
+      const payload = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        loginStatus.textContent = payload.error || (authMode === "register" ? "Registracija ni uspela." : "Prijava ni uspela.");
+        return;
+      }
+
+      loginPasswordInput.value = "";
+      if (!appInitialized) {
+        await initializeApp();
+      } else {
+        setAuthenticatedView(true, payload.username || loginUsernameInput.value.trim());
+      }
+    });
+
+    toggleRegisterButton.addEventListener("click", () => {
+      setAuthMode("register", true);
+    });
+
+    toggleLoginButton.addEventListener("click", () => {
+      setAuthMode("login", true);
+    });
+
+    logoutButton.addEventListener("click", async () => {
+      await fetch("/api/logout", { method: "POST" });
+      setAuthMode("login", true);
+      setAuthenticatedView(false);
+    });
+
+    togglePasswordPanelButton.addEventListener("click", () => {
+      passwordPanel.classList.toggle("hidden");
+      passwordStatus.textContent = "";
+      if (!passwordPanel.classList.contains("hidden")) {
+        currentPasswordInput.focus();
+      }
+    });
+
+    cancelPasswordPanelButton.addEventListener("click", () => {
+      passwordPanel.classList.add("hidden");
+      passwordForm.reset();
+      passwordStatus.textContent = "";
+    });
+
+    passwordForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      passwordStatus.textContent = "";
+
+      if (newPasswordInput.value !== confirmPasswordInput.value) {
+        passwordStatus.textContent = "Novo geslo in potrditev se ne ujemata.";
+        return;
+      }
+
+      const response = await fetch("/api/change-password", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          currentPassword: currentPasswordInput.value,
+          newPassword: newPasswordInput.value
+        })
+      });
+
+      const payload = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        passwordStatus.textContent = payload.error || "Sprememba gesla ni uspela.";
+        return;
+      }
+
+      passwordStatus.textContent = "Geslo je spremenjeno.";
+      passwordForm.reset();
+    });
+
+    void initializeApp();
   </script>
 </body>
 </html>
