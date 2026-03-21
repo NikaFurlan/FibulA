@@ -19,8 +19,8 @@ from http.cookies import SimpleCookie
 from socket import error as SocketError
 
 
-HOST = "127.0.0.1"
-PORT = 8000
+DEFAULT_HOST = "127.0.0.1"
+DEFAULT_PORT = 8000
 UPLOAD_DIR = "uploads"
 STATE_FILE = "app_state.json"
 AUTH_FILE = "auth.json"
@@ -645,34 +645,49 @@ class NoCacheHandler(SimpleHTTPRequestHandler):
 def get_runtime_paths() -> tuple[Path, Path]:
     if getattr(sys, "frozen", False):
         resource_dir = Path(getattr(sys, "_MEIPASS", Path(sys.executable).resolve().parent))
-        data_dir = Path(sys.executable).resolve().parent
+        data_dir = Path(os.environ.get("APP_DATA_DIR", Path(sys.executable).resolve().parent))
         return resource_dir, data_dir
 
     project_dir = Path(__file__).resolve().parent
-    return project_dir, project_dir
+    data_dir = Path(os.environ.get("APP_DATA_DIR", project_dir))
+    return project_dir, data_dir
 
 
-def create_server(handler) -> tuple[ThreadingHTTPServer, int]:
-    for port in range(PORT, PORT + 20):
+def get_server_binding() -> tuple[str, int, bool]:
+    env_port = os.environ.get("PORT")
+    is_deployed = bool(os.environ.get("RENDER")) or bool(env_port)
+    host = os.environ.get("HOST", "0.0.0.0" if is_deployed else DEFAULT_HOST)
+    port = int(env_port or os.environ.get("APP_PORT", str(DEFAULT_PORT)))
+    return host, port, is_deployed
+
+
+def create_server(handler, host: str, port: int, strict_port: bool = False) -> tuple[ThreadingHTTPServer, int]:
+    if strict_port:
+        server = ThreadingHTTPServer((host, port), handler)
+        return server, port
+
+    for candidate_port in range(port, port + 20):
         try:
-            server = ThreadingHTTPServer((HOST, port), handler)
-            return server, port
+            server = ThreadingHTTPServer((host, candidate_port), handler)
+            return server, candidate_port
         except OSError as error:
             bind_errors = {13, 48, 98, 10013, 10048}
             if error.errno not in bind_errors and getattr(error, "winerror", None) not in bind_errors:
                 raise
 
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as probe:
-        probe.bind((HOST, 0))
+        probe.bind((host, 0))
         fallback_port = probe.getsockname()[1]
 
-    server = ThreadingHTTPServer((HOST, fallback_port), handler)
+    server = ThreadingHTTPServer((host, fallback_port), handler)
     return server, fallback_port
 
 
 def main() -> None:
     resource_dir, data_dir = get_runtime_paths()
+    data_dir.mkdir(parents=True, exist_ok=True)
     index_file = resource_dir / "index.html"
+    host, port, is_deployed = get_server_binding()
 
     if not index_file.exists():
         raise FileNotFoundError(f"Missing page file: {index_file}")
@@ -686,12 +701,15 @@ def main() -> None:
         NoCacheHandler.app_data_dir = data_dir
         NoCacheHandler(*args, directory=str(resource_dir), **kwargs)
 
-    server, active_port = create_server(handler)
-    app_url = f"http://127.0.0.1:{active_port}"
+    server, active_port = create_server(handler, host, port, strict_port=is_deployed)
+    public_host = "127.0.0.1" if host == "0.0.0.0" and not is_deployed else host
+    app_url = f"http://{public_host}:{active_port}"
 
     print(f"Serving {index_file.name} at {app_url}")
-    if active_port != PORT:
-        print(f"Port {PORT} is unavailable, using {active_port} instead.")
+    if not is_deployed and active_port != DEFAULT_PORT:
+        print(f"Port {DEFAULT_PORT} is unavailable, using {active_port} instead.")
+    if is_deployed:
+        print(f"Using app data directory: {data_dir}")
     print("Press Ctrl+C to stop the server.")
 
     if getattr(sys, "frozen", False):

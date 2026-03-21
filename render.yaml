@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: fibula
+    env: python
+    plan: free
+    buildCommand: ""
+    startCommand: python main.py
+    envVars:
+      - key: APP_DATA_DIR
+        value: /var/data
